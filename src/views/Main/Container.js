@@ -16,7 +16,7 @@ export class Container extends React.Component {
 
   constructor() {
     super();
-    Loom.configure({ baseUrl: 'localhost' });
+    Loom.configure({ baseUrl: 'api.loom.digital' });
   }
 
   getChildren() {
