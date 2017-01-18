@@ -2,17 +2,15 @@ import React, { PropTypes } from 'react';
 import classnames from 'classnames';
 import { isEmpty } from 'lodash/isEmpty';
 
-import { EntitySetSummary } from './EntitySet';
+import EntitySet from './EntitySet';
 import { EntitySetPropType } from './EntitySetStorage';
 import styles from '../../containers/catalog/catalog.module.css';
 
-const baseEntitySetListPropTypes = {
-  entitySets: PropTypes.arrayOf(EntitySetPropType).isRequired,
-  className: PropTypes.string
-};
-
-export class EntitySetList extends React.Component {
-  static propTypes = baseEntitySetListPropTypes;
+export default class EntitySetList extends React.Component {
+  static propTypes = {
+    entitySets: PropTypes.arrayOf(EntitySetPropType).isRequired,
+    className: PropTypes.string
+  };
 
   render() {
     const { entitySets } = this.props;
@@ -27,7 +25,7 @@ export class EntitySetList extends React.Component {
     } else {
       content = entitySets.map((entitySet) => {
         return (
-          <EntitySetSummary
+          <EntitySet
             key={entitySet.id}
             entitySet={entitySet}
           />
