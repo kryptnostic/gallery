@@ -27,3 +27,7 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('app')
 );
+
+window.Intercom("boot", {
+  app_id: "scseqm3j"
+});
