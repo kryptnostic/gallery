@@ -34,43 +34,10 @@ const TagInputField = styled.input`
   width: 100%;
 `;
 
+// TODO: consider moving to a shared location to promote reusability
+// TODO: leaving out many key codes for now, since we're only relying on the ENTER key
 const KEY_CODES = {
-  BACKSPACE: 8,
-  TAB: 9,
-  CLEAR: 12,
-  ENTER: 13,
-  SHIFT: 16,
-  CONTROL: 17,
-  ALT: 18,
-  PAUSE: 19,
-  CAPS_LOCK: 20,
-  ESCAPE: 27,
-  SPACE: 32,
-  PAGE_UP: 33,
-  PAGE_DOWN: 34,
-  END: 35,
-  HOME: 36,
-  ARROW_LEFT: 37,
-  ARROW_UP: 38,
-  ARROW_RIGHT: 39,
-  ARROW_DOWN: 40,
-  INSERT: 45,
-  DELETE: 46,
-  F1: 112,
-  F2: 113,
-  F3: 114,
-  F4: 115,
-  F5: 116,
-  F6: 117,
-  F7: 118,
-  F8: 119,
-  F9: 120,
-  F10: 121,
-  F11: 122,
-  F12: 123,
-  NUM_LOCK: 144,
-  SCROLL_LOCK: 145,
-  META: 224
+  ENTER: 13
 };
 
 let idCounter = 0;
