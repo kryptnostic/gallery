@@ -83,11 +83,15 @@ function getUniqueTagKey() {
 export default class InputWithTags extends React.Component {
 
   static propTypes = {
-    placeholder: React.PropTypes.string
+    placeholder: React.PropTypes.string,
+    isValidNewTag: React.PropTypes.func
   };
 
   static defaultProps = {
-    placeholder: 'Add new tag...'
+    placeholder: 'Add new tag...',
+    isValidNewTag: (tagLabel :string) => {
+      return !!tagLabel;
+    }
   }
 
   state :{
@@ -108,6 +112,10 @@ export default class InputWithTags extends React.Component {
   addTag = (tagLabel :string) => {
 
     if (isEmpty(tagLabel) || isEmpty(tagLabel.trim()) || this.state.tags.has(tagLabel)) {
+      return;
+    }
+
+    if (!this.props.isValidNewTag(tagLabel)) {
       return;
     }
 
