@@ -17,7 +17,7 @@ class HeaderNav extends React.Component {
 
   onLogoutClick = () => {
     this.props.auth.logout();
-  }
+  };
 
   render() {
 
@@ -25,9 +25,25 @@ class HeaderNav extends React.Component {
       ? `Hi, ${this.props.name}!`
       : 'Hi!';
 
-    const settingsNavItemClassNames = (this.props.isAdmin)
-      ? styles.headerNavItem
-      : `${styles.headerNavItem} ${styles.hidden}`;
+    let authLink;
+    if (this.props.auth.isAuthenticated()) {
+      authLink = (
+          <Link
+              to={`/${PageConsts.LOGIN}`}
+              className={styles.headerNavLink}
+              onClick={this.onLogoutClick}>
+            Logout
+          </Link>
+      );
+    } else {
+      authLink = (
+          <Link
+              to={`/${PageConsts.LOGIN}`}
+              className={styles.headerNavLink}>
+            Login
+          </Link>
+      );
+    }
 
     return (
       <header className={styles.headerNavWrapper}>
@@ -42,12 +58,7 @@ class HeaderNav extends React.Component {
               { greeting }
             </div>
             <div className={styles.headerNavItem}>
-              <Link
-                  to={`/${PageConsts.LOGIN}`}
-                  className={styles.headerNavLink}
-                  onClick={this.onLogoutClick}>
-                Logout
-              </Link>
+              {authLink}
             </div>
           </div>
 

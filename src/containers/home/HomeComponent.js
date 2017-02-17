@@ -1,5 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
+import classnames from 'classnames';
 
 import Page from '../../components/page/Page';
 import { EntitySetPropType } from '../edm/EdmModel';
@@ -10,6 +12,7 @@ import EntitySetList from '../../components/entityset/EntitySetList';
 import { popularEntitySetsRequest } from '../catalog/CatalogActionFactories';
 import AsyncContent, { AsyncStatePropType } from '../../components/asynccontent/AsyncContent';
 import PageConsts from '../../utils/Consts/PageConsts';
+import AuthService from '../../utils/AuthService';
 
 import joinImg from '../../images/icon-join.svg';
 import exploreImg from '../../images/icon-explore.svg';
@@ -22,23 +25,33 @@ class HomeComponent extends React.Component {
     entitySets: PropTypes.arrayOf(EntitySetPropType),
     loadEntitySets: PropTypes.func.isRequired,
     loadPropertyTypes: PropTypes.func.isRequired,
-    loadEntityTypes: PropTypes.func.isRequired
+    loadEntityTypes: PropTypes.func.isRequired,
+    auth: PropTypes.instanceOf(AuthService)
   };
 
   componentDidMount() {
-    this.props.loadEntitySets();
-    this.props.loadPropertyTypes();
-    this.props.loadEntityTypes();
+    if (this.props.auth.isAuthenticated()) {
+      this.props.loadEntitySets();
+      this.props.loadPropertyTypes();
+      this.props.loadEntityTypes();
+    }
   }
 
   renderPopularEntitySets = () => {
-    if (this.props.entitySets !== undefined && this.props.entitySets.length > 0) {
-      return (<AsyncContent
-          {...this.props.asyncState}
-          pendingContent={<h2>Please run a search</h2>}
-          content={() => {
-            return (<EntitySetList entitySets={this.props.entitySets} />);
-          }} />);
+    if (!this.props.auth.isAuthenticated()) {
+      return (<Link to={`/${PageConsts.LOGIN}`} className={classnames(styles.login, 'btn btn-primary')} role="button">Login to see more</Link>);
+    } else if (this.props.entitySets && this.props.entitySets.length > 0) {
+      return (
+        <div>
+          <div className={styles.getStartedMessage}>Get started by exploring our most popular entity sets</div>
+          <AsyncContent
+            {...this.props.asyncState}
+            pendingContent={<h2>Please run a search</h2>}
+            content={() => {
+              return (<EntitySetList entitySets={this.props.entitySets} />);
+            }} />
+        </div>
+      );
     }
     return null;
   }
@@ -67,8 +80,6 @@ class HomeComponent extends React.Component {
           </div>
         </Page.Header>
         <Page.Body>
-          <div className={styles.getStartedMessage}>Get started by exploring our most popular entity sets
-          </div>
           {this.renderPopularEntitySets()}
         </Page.Body>
       </Page>

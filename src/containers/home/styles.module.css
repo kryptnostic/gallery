@@ -57,3 +57,13 @@
   font-size: 16px;
   padding: 0 0 15px 0;
 }
+
+
+.login {
+  display: flex;
+  margin: auto;
+  width: 200px;
+  height: 60px;
+  align-items: center;
+  justify-content: center;
+}

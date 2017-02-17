@@ -77,7 +77,7 @@ export const makeMainRoutes = () => {
   return (
     <Route path={'/'} component={Container} auth={auth} profileFn={getProfileStatus}>
       <IndexRedirect to={`/${PageConsts.HOME}`} />
-      <Route path={PageConsts.HOME} component={HomeComponent} onEnter={requireAuth} />
+      <Route path={PageConsts.HOME} component={HomeComponent} />
       <Route path={PageConsts.CATALOG} component={CatalogComponent} onEnter={requireAuth} />
       <Route path={`${PageConsts.SEARCH}/:entitySetId`} component={EntitySetDataSearch} onEnter={requireAuth} />
       <Route path={'entitysets/:id'} component={EntitySetDetailComponent} onEnter={requireAuth} />

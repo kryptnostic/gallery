@@ -1,4 +1,5 @@
 import { EventEmitter } from 'events';
+import isEmpty from 'lodash/isEmpty';
 
 import Auth0Lock from 'auth0-lock';
 
@@ -80,6 +81,10 @@ export default class AuthService extends EventEmitter {
     // Retrieves the profile data from localStorage
     const profile = this.storage.getItem('profile');
     return profile ? JSON.parse(this.storage.profile) : {};
+  }
+
+  isAuthenticated() {
+    return !isEmpty(this.getProfile());
   }
 
   setToken(idToken) {
