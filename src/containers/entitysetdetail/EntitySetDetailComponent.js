@@ -1,7 +1,9 @@
 import React, { PropTypes } from 'react';
+import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { Button, Modal } from 'react-bootstrap';
 import classnames from 'classnames';
+import { EntityDataModelApi } from 'loom-data';
 
 import * as actionFactories from './EntitySetDetailActionFactories';
 import * as edmActionFactories from '../edm/EdmActionFactories';
@@ -15,11 +17,14 @@ import ActionDropdown from '../edm/components/ActionDropdown';
 import AsyncContent, { AsyncStatePropType } from '../../components/asynccontent/AsyncContent';
 import { EntitySetPropType } from '../edm/EdmModel';
 import Page from '../../components/page/Page';
+import PageConsts from '../../utils/Consts/PageConsts';
+import { Permission } from '../../core/permissions/Permission';
 import styles from './entitysetdetail.module.css';
 
 class EntitySetDetailComponent extends React.Component {
   static propTypes = {
     asyncState: AsyncStatePropType.isRequired,
+    router: PropTypes.object.isRequired,
 
     // Async content
     entitySet: EntitySetPropType,
@@ -32,7 +37,8 @@ class EntitySetDetailComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      editingPermissions: false
+      editingPermissions: false,
+      deleteError: false
     };
   }
 
@@ -54,13 +60,22 @@ class EntitySetDetailComponent extends React.Component {
         <div className={styles.controls}>
           <ActionDropdown entitySetId={entitySet.id} className={classnames(styles.actionDropdown, styles.control)} />
 
-          { entitySetPermissions.OWNER ? <Button
-              bsStyle="info"
-              onClick={this.setEditingPermissions}
-              className={styles.managePermissions}>Manage Permissions</Button> : ''}
+          {
+            entitySetPermissions.OWNER &&
+            <Button bsStyle="info" onClick={this.setEditingPermissions} className={styles.managePermissions}>
+              Manage Permissions
+            </Button>
+          }
         </div>
 
-        <EntitySetPermissionsRequestList entitySetId={entitySet.id} propertyTypeIds={entitySet.entityType.properties.map(p => p.id)} />
+        {
+          entitySetPermissions.OWNER &&
+          <EntitySetPermissionsRequestList
+              entitySetId={entitySet.id}
+              propertyTypeIds={entitySet.entityType.properties.map((p) => {
+                return p.id;
+              })} />
+        }
       </div>
     );
   };
@@ -80,6 +95,43 @@ class EntitySetDetailComponent extends React.Component {
       </Modal>
     );
   };
+
+  renderSearchEntitySet = () => {
+    if (!this.props.entitySet) return null;
+    return (
+      <div className={styles.buttonWrapper}>
+        <Button bsStyle="primary" className={styles.center}>
+          <Link className={styles.buttonLink} to={`/search/${this.props.entitySet.id}`}>
+            Search this entity set
+          </Link>
+        </Button>
+      </div>
+    );
+  }
+
+  deleteEntitySet = () => {
+    if (!this.props.entitySet) return null;
+    EntityDataModelApi.deleteEntitySet(this.props.entitySet.id)
+    .then(() => {
+      this.props.router.push(`/${PageConsts.HOME}`);
+    }).catch(() => {
+      this.setState({ deleteError: true });
+    });
+  }
+
+  renderDeleteEntitySet = () => {
+    if (!this.props.entitySet || !this.props.entitySetPermissions.OWNER) return null;
+    const error = (this.state.deleteError) ? <div className={styles.error}>Unable to delete entity set</div> : null;
+    return (
+      <div className={styles.buttonWrapper}>
+        <Button
+            bsStyle="danger"
+            className={styles.center}
+            onClick={this.deleteEntitySet}>Delete this entity set</Button>
+        {error}
+      </div>
+    );
+  }
 
   closePermissionsPanel = () => {
     this.setState({ editingPermissions: false });
@@ -105,6 +157,8 @@ class EntitySetDetailComponent extends React.Component {
             );
           }} />
           {this.renderPermissionsPanel()}
+          {this.renderSearchEntitySet()}
+          {this.renderDeleteEntitySet()}
 
         </Page.Body>
       </Page>
