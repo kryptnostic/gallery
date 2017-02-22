@@ -18,7 +18,7 @@ function convertSearchResult(rawResult):DataModel.EntitySet {
 
 // TODO: Save property types
 function searchCatalog(filterParams) {
-  return Observable.from(SearchApi.search(filterParams))
+  return Observable.from(SearchApi.searchEntitySetMetaData(filterParams))
     .map(rawResult => rawResult.map(convertSearchResult))
     .map(result => normalize(result, [EntitySetNschema]))
     .map(Immutable.fromJS)
