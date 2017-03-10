@@ -9,10 +9,11 @@ export function catalogSearchRequest(filterParams:Object) {
 }
 
 //TODO: Replace with EdmObjectReferences
-export function catalogSearchResolve(entitySetIds:string[]) {
+export function catalogSearchResolve(entitySetIds:string[], numHits:string) {
   return {
     type: actionTypes.CATALOG_SEARCH_RESOLVE,
-    entitySetIds
+    entitySetIds,
+    numHits
   };
 }
 
@@ -23,22 +24,22 @@ export function catalogSearchReject(errorMessage:string) {
   };
 }
 
-export function popularEntitySetsRequest() {
+export function allEntitySetsRequest() {
   return {
-    type: actionTypes.POPULAR_ENTITY_SETS_REQUEST
+    type: actionTypes.ALL_ENTITY_SETS_REQUEST
   }
 }
 
-export function popularEntitySetsResolve(references:EdmObjectReference[]) {
+export function allEntitySetsResolve(references:EdmObjectReference[]) {
   return {
-    type: actionTypes.POPULAR_ENTITY_SETS_RESOLVE,
+    type: actionTypes.ALL_ENTITY_SETS_RESOLVE,
     references
   }
 }
 
-export function popularEntitySetsReject(errorMessage:string) {
+export function allEntitySetsReject(errorMessage:string) {
   return {
-    type: actionTypes.POPULAR_ENTITY_SETS_REJECT,
+    type: actionTypes.ALL_ENTITY_SETS_REJECT,
     errorMessage
   }
 }

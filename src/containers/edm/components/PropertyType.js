@@ -48,13 +48,18 @@ class PropertyType extends React.Component {
   }
 
   // TODO: Handle more than just permissions
+  //THIS IS USED IN REQUEST PERMISSIONS MODAL
   onChange = (event) => {
-    const { onChange } = this.props,
-      canRead = event.target.value == 'on';
+    const { onChange, propertyTypeId, permissions } = this.props,
+      canRead = event.target.value === 'on';
 
     if (onChange && canRead) {
-      onChange({
-        permissions: canRead
+      const newPermissions = Object.assign({}, permissions, {
+        READ: canRead
+      });
+
+      onChange(propertyTypeId, {
+        permissions: newPermissions
       });
     }
   };
@@ -67,12 +72,12 @@ class PropertyType extends React.Component {
     if (editing.permissions) {
       // TODO: Support more than just read
       // TODO: Enforce entitySetId on edit
-      content = (<input type="checkbox" id={`ptp-${propertyType.id}`} onChange={this.onChange} defaultChecked={canRead}/>);
+      content = (<input type="checkbox" id={`ptp-${propertyType.id}`} onChange={this.onChange} defaultChecked={canRead} disabled={!!canRead}/>);
     } else if (!canRead) {
       content = (<FontAwesome name="lock"/>);
     }
 
-    const classes = classnames("propertyTypePermissions", {
+    const classes = classnames('propertyTypePermissions', {
       editing: editing.permissions
     });
     return (<div className={classes}>{content}</div>);
@@ -187,27 +192,27 @@ function mapStateToProps(state, ownProps) {
   };
 }
 
-function mapDispatchToProps(dispatch, ownProps) {
-  const { entitySetId, propertyTypeId } = ownProps;
+// function mapDispatchToProps(dispatch, ownProps) {
+//   const { entitySetId, propertyTypeId } = ownProps;
+//
+//   let onChange;
+//   if (entitySetId) {
+//     onChange = (property) => {
+//       const canRead = property.permissions;
+//
+//       if (canRead) {
+//         const request = {
+//           aclKey: [entitySetId, propertyTypeId],
+//           permissions: ["READ"]
+//         };
+//         dispatch(PermissionsActionFactory.requestPermissionsRequest([request]));
+//       }
+//     }
+//   }
+//
+//   return {
+//     onChange
+//   }
+// }
 
-  let onChange;
-  if (entitySetId) {
-    onChange = (property) => {
-      const canRead = property.permissions;
-
-      if (canRead) {
-        const request = {
-          aclKey: [entitySetId, propertyTypeId],
-          permissions: ["READ"]
-        };
-        dispatch(PermissionsActionFactory.requestPermissionsRequest([request]));
-      }
-    }
-  }
-
-  return {
-    onChange
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(PropertyType);
+export default connect(mapStateToProps)(PropertyType);

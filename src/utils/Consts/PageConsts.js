@@ -3,9 +3,12 @@ const CATALOG = 'catalog';
 const LOGIN = 'login';
 const SETTINGS = 'settings';
 const VISUALIZE = 'visualize';
-const ORG = 'org';
 const DATA_MODEL = 'datamodel';
-const DATASOURCES = 'datasources';
+const DATASETS = 'datasets';
+const LINK = 'link';
+const SEARCH = 'search';
+const ADVANCED_SEARCH = 'advanced_search';
+const ORGS = 'orgs';
 
 export default {
   HOME,
@@ -13,7 +16,10 @@ export default {
   LOGIN,
   SETTINGS,
   VISUALIZE,
-  ORG,
   DATA_MODEL,
-  DATASOURCES
+  DATASETS,
+  LINK,
+  SEARCH,
+  ADVANCED_SEARCH,
+  ORGS
 };

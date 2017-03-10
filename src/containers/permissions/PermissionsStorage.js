@@ -47,9 +47,10 @@ export const AuthorizationPropType = PropTypes.shape({
   permissions: PermissionsPropType
 });
 
-export type PermissionsRequest = {
+export type AuthNRequest = {
   aclKey :AclKey,
-  permissions :string[]
+  permissions :string[],
+  reason :string
 };
 
 export type Principal = {
@@ -75,7 +76,7 @@ export type Status = {
 export const StatusPropType = PropTypes.shape({
   aclKey: AclKeyPropType.isRequired,
   principal: PrincipalPropType.isRequired,
-  permissions: PropTypes.arrayOf(PropTypes.oneOf(['SUBMITTED', 'APPROVED', 'DECLINED'])).isRequired,
+  permissions: PropTypes.arrayOf(PropTypes.oneOf(ALL_PERMISSIONS)).isRequired,
   status: PropTypes.string.isRequired
 });
 
@@ -84,7 +85,14 @@ export function createStatusAsyncReference(aclKey :AclKey) :AsyncReference {
   return {
     id: aclKey.join('/'),
     namespace: 'permissions.status'
-  }
+  };
+}
+
+export function createAuthnAsyncReference(aclKey :AclKey) :AsyncReference {
+  return {
+    id: aclKey.join('/'),
+    namespace: 'permissions.authn'
+  };
 }
 
 /* Utility Functions */

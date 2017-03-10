@@ -2,48 +2,46 @@
  * @flow
  */
 
-import {
-  CHECK_AUTHORIZATION_REQUEST,
-  CHECK_AUTHORIZATION_RESOLVE,
-  CHECK_AUTHORIZATION_REJECT,
-  REQUEST_PERMISSIONS_MODAL_SHOW,
-  REQUEST_PERMISSIONS_MODAL_HIDE,
-  REQUEST_PERMISSIONS_REQUEST,
-  REQUEST_PERMISSIONS_RESOLVE,
-  LOAD_STATUSES,
-  UPDATE_STATUSES
-} from './PermissionsActionTypes';
+import { DataModels } from 'loom-data';
+
+import * as PermissionsActionTypes from './PermissionsActionTypes';
 
 import {
   ALL_PERMISSIONS,
   RequestStatus,
-  Status
+  Status,
+  AccessCheck
 } from './PermissionsStorage';
 
 import type {
   Authorization,
-  PermissionsRequest,
+  AuthNRequest,
   AclKey
 } from './PermissionsStorage';
 
-export function checkAuthorizationRequest(accessChecks :Object[]) :Object {
+const {
+  Acl,
+  AclData
+} = DataModels;
+
+export function checkAuthorizationRequest(accessChecks :AccessCheck[]) :Object {
 
   return {
-    type: CHECK_AUTHORIZATION_REQUEST,
+    type: PermissionsActionTypes.CHECK_AUTHORIZATION_REQUEST,
     accessChecks
   };
 }
 export function checkAuthorizationResolve(authorizations :Authorization[]) :Object {
 
   return {
-    type: CHECK_AUTHORIZATION_RESOLVE,
+    type: PermissionsActionTypes.CHECK_AUTHORIZATION_RESOLVE,
     authorizations
   };
 }
-export function checkAuthorizationReject(accessChecks :Object[], errorMessage :string) :Object {
+export function checkAuthorizationReject(accessChecks :AccessCheck[], errorMessage :string) :Object {
 
   return {
-    type: CHECK_AUTHORIZATION_REJECT,
+    type: PermissionsActionTypes.CHECK_AUTHORIZATION_REJECT,
     accessChecks,
     errorMessage
   };
@@ -63,46 +61,94 @@ export function getEntitySetsAuthorizations(entitySetIds :UUID[]) :Object {
 
 export function requestPermissionsModalShow(entitySetId: UUID) {
   return {
-    type: REQUEST_PERMISSIONS_MODAL_SHOW,
+    type: PermissionsActionTypes.REQUEST_PERMISSIONS_MODAL_SHOW,
     entitySetId
   }
 }
 export function requestPermissionsModalHide() {
   return {
-    type: REQUEST_PERMISSIONS_MODAL_HIDE
+    type: PermissionsActionTypes.REQUEST_PERMISSIONS_MODAL_HIDE
   }
 }
 
-export function requestPermissionsRequest(requests :PermissionsRequest[]) {
+export function requestPermissionsModalSuccess() {
   return {
-    type: REQUEST_PERMISSIONS_REQUEST,
-    requests
+    type: PermissionsActionTypes.REQUEST_PERMISSIONS_MODAL_SUCCESS
   }
 }
-export function requestPermissionsReject(requests :PermissionsRequest[], errorMessage :string) {
+
+export function requestPermissionsModalError() {
   return {
-    type: REQUEST_PERMISSIONS_RESOLVE,
-    requests,
-    errorMessage
+    type: PermissionsActionTypes.REQUEST_PERMISSIONS_MODAL_FAILURE
   }
 }
-export function requestPermissionsResolve(requests :PermissionsRequest[]) {
+
+export function submitAuthNRequest(requests :AuthNRequest[]) {
   return {
-    type: REQUEST_PERMISSIONS_RESOLVE,
+    type: PermissionsActionTypes.SUBMIT_AUTHN_REQUEST,
     requests
   }
 }
 
 export function loadOpenStatusesRequest(aclKeys :AclKey[]) {
   return {
-    type: LOAD_STATUSES,
+    type: PermissionsActionTypes.LOAD_STATUSES,
     aclKeys,
     reqStatus: RequestStatus.SUBMITTED
   }
 }
 export function updateStatusesStatusesRequest(statuses :Status[]) {
   return {
-    type: UPDATE_STATUSES,
+    type: PermissionsActionTypes.UPDATE_STATUSES,
     statuses
   }
+}
+
+export function getAclRequest(aclKey :UUID[]) :Object {
+
+  return {
+    type: PermissionsActionTypes.GET_ACL_REQUEST,
+    aclKey
+  };
+}
+
+export function getAclSuccess(aclKey :UUID[], acl :Acl) :Object {
+
+  return {
+    type: PermissionsActionTypes.GET_ACL_SUCCESS,
+    aclKey,
+    acl
+  };
+}
+
+export function getAclFailure(aclKey :UUID[]) :Object {
+
+  return {
+    type: PermissionsActionTypes.GET_ACL_FAILURE,
+    aclKey
+  };
+}
+
+export function updateAclRequest(aclData :AclData) :Object {
+
+  return {
+    type: PermissionsActionTypes.UPDATE_ACL_REQUEST,
+    aclData
+  };
+}
+
+export function updateAclSuccess(aclData :AclData) :Object {
+
+  return {
+    type: PermissionsActionTypes.UPDATE_ACL_SUCCESS,
+    aclData
+  };
+}
+
+export function updateAclFailure(aclData :AclData) :Object {
+
+  return {
+    type: PermissionsActionTypes.UPDATE_ACL_FAILURE,
+    aclData
+  };
 }

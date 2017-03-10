@@ -15,7 +15,7 @@ export const PropertyTypePropType = PropTypes.shape({
 
 export const EntityTypePropType = PropTypes.shape({
   id: PropTypes.string.isRequired,
-  properties: PropTypes.arrayOf(PropertyTypePropType),
+  properties: PropTypes.arrayOf(PropTypes.string),
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   type: TypePropType.isRequired
@@ -26,5 +26,6 @@ export const EntitySetPropType = PropTypes.shape({
   name: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-  entityTypeId: PropTypes.string.isRequired
+  entityTypeId: PropTypes.string.isRequired,
+  contacts: PropTypes.array.isRequired
 });

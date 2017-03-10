@@ -3,7 +3,10 @@
  */
 
 import {
-  AuthorizationApi
+  AuthorizationApi,
+  PermissionsApi,
+  RequestsApi,
+  DataModels
 } from 'loom-data';
 
 import {
@@ -24,22 +27,23 @@ import {
 
 import {
   deserializeAuthorization,
-  createStatusAsyncReference
+  createStatusAsyncReference,
+  createAuthnAsyncReference
 } from './PermissionsStorage';
 
 import type {
   AccessCheck,
-  PermissionsRequest,
+  AuthNRequest,
   AclKey,
   Status
 } from './PermissionsStorage'
 
-import Api from '../Api';
+const { Acl } = DataModels;
 
 function updateStatuses(statuses :Status[]) {
   return Observable.from(statuses)
     .mergeMap(status => {
-      return Observable.from(Api.updateStatuses([status]))
+      return Observable.from(RequestsApi.updateRequestStatuses([status]))
         .mapTo(AsyncActionFactory.updateAsyncReference(createStatusAsyncReference(status.aclKey), status))
         .catch(console.error);
     });
@@ -57,7 +61,12 @@ function loadStatuses(reqStatus :string, aclKeys :AclKey[]) {
     Observable.from(references)
       .map(AsyncActionFactory.asyncReferenceLoading),
 
-    Observable.from(Api.getStatus(reqStatus, aclKeys))
+    Observable.from(
+      RequestsApi.getAllRequestStatuses({
+        state: reqStatus,
+        aclKeys
+      })
+    )
     // Observable.of([
     //   {
     //     "aclKey": [
@@ -108,33 +117,58 @@ function loadStatusesEpic(action$) {
     .mergeMap(action => loadStatuses(action.reqStatus, action.aclKeys));
 }
 
-function requestPermissions(requests :PermissionsRequest[]) :Observable<Action> {
+function submitAuthnRequest(requests :AuthNRequest[]) :Observable<Action> {
   return Observable
-    .from(Api.permissionsRequest(requests))
-    .mapTo(PermissionsActionFactory.requestPermissionsResolve(requests));
+    .from(RequestsApi.submitRequests(requests))
+    .mapTo(PermissionsActionFactory.requestPermissionsModalSuccess())
+    .catch(e => {
+      return Observable.of(PermissionsActionFactory.requestPermissionsModalError())
+    });
 }
 
-function requestPermissionsEpic(action$ :Observable<Action>) :Observable<Action> {
+function submitAuthnRequestEpic(action$ :Observable<Action>) :Observable<Action> {
   return action$
-    .ofType(PermissionsActionTypes.REQUEST_PERMISSIONS_REQUEST)
+    .ofType(PermissionsActionTypes.SUBMIT_AUTHN_REQUEST)
     .pluck('requests')
-    .mergeMap(requestPermissions);
+    .mergeMap(submitAuthnRequest);
 }
 
-// TODO: Save property types
+// TODO: Move entirely to async container and take *huge* advantage of caching
 function authorizationCheck(accessChecks :AccessCheck[]) :Observable<Action> {
 
-  return Observable
-    .from(AuthorizationApi.checkAuthorizations(accessChecks))
-    .map((authorizations) => {
-      return authorizations.map(deserializeAuthorization);
-    })
-    .map(PermissionsActionFactory.checkAuthorizationResolve)
-    .catch(() => {
-      return Observable.of(
-        PermissionsActionFactory.checkAuthorizationReject(accessChecks, 'Error loading authorizations')
-      );
-    });
+  const references = accessChecks.map(check => {
+    return createAuthnAsyncReference(check.aclKey);
+  });
+
+  return Observable.merge(
+    Observable
+      .from(references)
+      .map(AsyncActionFactory.asyncReferenceLoading),
+
+    Observable
+      .from(AuthorizationApi.checkAuthorizations(accessChecks))
+      .map((authorizations) => {
+        return authorizations.map(deserializeAuthorization);
+      })
+      .mergeMap(authorizations => {
+        // Async
+        const actions = authorizations.map(authn => {
+          return AsyncActionFactory.updateAsyncReference(createAuthnAsyncReference(authn.aclKey), authn);
+        });
+        // Old Code
+        actions.push(PermissionsActionFactory.checkAuthorizationResolve(authorizations));
+        return actions;
+      })
+      .catch(() => {
+        // Async
+        const actions = references.map(reference => {
+          return AsyncActionFactory.asyncReferenceError(reference, 'Error loading authorization');
+        });
+        // Old Code
+        actions.push(PermissionsActionFactory.checkAuthorizationReject(accessChecks, 'Error loading authorizations'));
+        return Observable.from(actions);
+      })
+  );
 }
 
 // TODO: Cancellation and Error handling
@@ -146,4 +180,56 @@ function authorizationCheckEpic(action$ :Observable<Action>) :Observable<Action>
     .mergeMap(authorizationCheck);
 }
 
-export default combineEpics(authorizationCheckEpic, requestPermissionsEpic, loadStatusesEpic, updateStatusesEpic);
+/*
+ * TODO: I don't understand the "reference" pattern, so I don't want to touch anything above so not to break anything,
+ * but PermissionsEpic seems like the correct place to put the rest of the PermissionsApi-related actions. I need to
+ * better understand how these references work to figure out whether or not to continue with that pattern.
+ */
+
+function getAclEpic(action$ :Observable<Action>) :Observable<Action> {
+
+  return action$
+    .ofType(PermissionsActionTypes.GET_ACL_REQUEST)
+    .mergeMap((action :Action) => {
+      return Observable
+        .from(PermissionsApi.getAcl(action.aclKey))
+        .mergeMap((acl :Acl) => {
+          return Observable.of(
+            PermissionsActionFactory.getAclSuccess(action.aclKey, acl)
+          );
+        })
+        .catch(() => {
+          return Observable.of(
+            PermissionsActionFactory.getAclFailure(action.aclKey)
+          );
+        });
+    });
+}
+function updateAclEpic(action$ :Observable<Action>) :Observable<Action> {
+
+  return action$
+    .ofType(PermissionsActionTypes.UPDATE_ACL_REQUEST)
+    .mergeMap((action :Action) => {
+      return Observable
+        .from(PermissionsApi.updateAcl(action.aclData))
+        .mergeMap(() => {
+          return Observable.of(
+            PermissionsActionFactory.updateAclSuccess(action.aclData)
+          );
+        })
+        .catch(() => {
+          return Observable.of(
+            PermissionsActionFactory.updateAclFailure(action.aclData)
+          );
+        });
+    });
+}
+
+export default combineEpics(
+  authorizationCheckEpic,
+  submitAuthnRequestEpic,
+  loadStatusesEpic,
+  updateStatusesEpic,
+  getAclEpic,
+  updateAclEpic
+);
