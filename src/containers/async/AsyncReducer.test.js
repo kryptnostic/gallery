@@ -15,4 +15,8 @@ describe('AsyncReducer', function() {
     const newState = reducer(INITIAL_STATE, action);
     expect(newState).to.have.deep.property([reference.namespace, reference.id], value);
   });
+
+  it('should break', function() {
+    throw new Error('broken');
+  });
 });
