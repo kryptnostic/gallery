@@ -6,6 +6,9 @@ import { DataModels } from 'loom-data';
 
 import * as PermissionsActionTypes from './PermissionsActionTypes';
 
+import { updateAsyncReference } from '../async/AsyncActionFactory';
+import { createStatusAsyncReference } from './PermissionsStorage';
+
 import {
   ALL_PERMISSIONS,
   RequestStatus,
@@ -59,35 +62,50 @@ export function getEntitySetsAuthorizations(entitySetIds :UUID[]) :Object {
   return checkAuthorizationRequest(accessChecks);
 }
 
-export function requestPermissionsModalShow(entitySetId: UUID) {
+export function requestPermissionsModalShow(entitySetId :UUID) {
   return {
     type: PermissionsActionTypes.REQUEST_PERMISSIONS_MODAL_SHOW,
     entitySetId
-  }
+  };
 }
 export function requestPermissionsModalHide() {
   return {
     type: PermissionsActionTypes.REQUEST_PERMISSIONS_MODAL_HIDE
-  }
+  };
 }
 
 export function requestPermissionsModalSuccess() {
   return {
     type: PermissionsActionTypes.REQUEST_PERMISSIONS_MODAL_SUCCESS
-  }
+  };
 }
 
 export function requestPermissionsModalError() {
   return {
     type: PermissionsActionTypes.REQUEST_PERMISSIONS_MODAL_FAILURE
-  }
+  };
+}
+
+export function requestPermissionsUpdateReason(reason :string) {
+  return {
+    type: PermissionsActionTypes.REQUEST_PERMISSIONS_UPDATE_REASON,
+    reason
+  };
+}
+
+export function requestPermissionsUpdateRequest(propertyTypeId :string, requestedPermissions :string[]) {
+  return {
+    type: PermissionsActionTypes.REQUEST_PERMISSIONS_UPDATE_REQUEST,
+    propertyTypeId,
+    requestedPermissions
+  };
 }
 
 export function submitAuthNRequest(requests :AuthNRequest[]) {
   return {
     type: PermissionsActionTypes.SUBMIT_AUTHN_REQUEST,
     requests
-  }
+  };
 }
 
 export function loadOpenStatusesRequest(aclKeys :AclKey[]) {
@@ -95,13 +113,17 @@ export function loadOpenStatusesRequest(aclKeys :AclKey[]) {
     type: PermissionsActionTypes.LOAD_STATUSES,
     aclKeys,
     reqStatus: RequestStatus.SUBMITTED
-  }
+  };
 }
-export function updateStatusesStatusesRequest(statuses :Status[]) {
+export function updateStatusesRequest(statuses :Status[]) {
   return {
     type: PermissionsActionTypes.UPDATE_STATUSES,
     statuses
-  }
+  };
+}
+
+export function updateStatusSuccess(status :Status) {
+  return updateAsyncReference(createStatusAsyncReference(status.aclKey), status);
 }
 
 export function getAclRequest(aclKey :UUID[]) :Object {
