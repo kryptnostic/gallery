@@ -33,4 +33,8 @@ describe('AsyncReducer', function() {
     expect(newState).to.have.deep.property([reference.namespace, reference.id])
       .deep.equals(value);
   });
+
+  it('should break', function() {
+    throw new Error('broken');
+  });
 });
