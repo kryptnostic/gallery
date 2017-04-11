@@ -7,8 +7,8 @@ import PageConsts from '../../../utils/Consts/PageConsts';
 import styles from '../styles.module.css';
 
 // TODO UPDATE PAGECONSTS (profile/edit profile) here and elsewhere
-const AccountMenu = ({onLogoutClick}) => {
-  return(
+const AccountMenu = ({ onLogoutClick }) => {
+  return (
     <DropdownButton
         title={
           <span><FontAwesome name="cog" /></span>
@@ -16,14 +16,18 @@ const AccountMenu = ({onLogoutClick}) => {
         pullRight
         id={styles.dropdown}
         noCaret>
-      <MenuItem eventKey='1' onSelect={() => {
-        hashHistory.push('/profile');
-      }}>Profile</MenuItem>
+      <MenuItem
+          onSelect={() => {
+            hashHistory.push(`/${PageConsts.EDIT_PROFILE}`);
+          }}>Profile
+      </MenuItem>
       <MenuItem divider />
-      <MenuItem eventKey='2' onSelect={() => {
-        onLogoutClick();
-        hashHistory.push(`/${PageConsts.LOGIN}`);
-      }}>Logout</MenuItem>
+      <MenuItem
+          onSelect={() => {
+            onLogoutClick();
+            hashHistory.push(`/${PageConsts.LOGIN}`);
+          }}>Logout
+      </MenuItem>
     </DropdownButton>
   );
 };
