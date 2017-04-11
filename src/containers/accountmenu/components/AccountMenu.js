@@ -10,8 +10,10 @@ const AccountMenu = ({}) => {
     <DropdownButton
         title={
           <span><FontAwesome name="cog" /></span>
-        }>
+        }
+        pullRight>
       <MenuItem eventKey='1'>Profile</MenuItem>
+      <MenuItem divider />
       <MenuItem eventKey='2'>Logout</MenuItem>
     </DropdownButton>
   );
