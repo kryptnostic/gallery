@@ -43,7 +43,7 @@ class HeaderNav extends React.Component {
               { greeting }
             </div>
             <div className={styles.headerNavItem}>
-              <AccountMenu />
+              <AccountMenu onLogoutClick={this.onLogoutClick} />
             </div>
           </div>
 

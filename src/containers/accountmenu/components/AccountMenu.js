@@ -6,7 +6,8 @@ import PageConsts from '../../../utils/Consts/PageConsts';
 
 import styles from '../styles.module.css';
 
-const AccountMenu = ({}) => {
+// TODO UPDATE PAGECONSTS (profile/edit profile) here and elsewhere
+const AccountMenu = ({onLogoutClick}) => {
   return(
     <DropdownButton
         title={
@@ -19,7 +20,10 @@ const AccountMenu = ({}) => {
         hashHistory.push('/profile');
       }}>Profile</MenuItem>
       <MenuItem divider />
-      <MenuItem eventKey='2'>Logout</MenuItem>
+      <MenuItem eventKey='2' onSelect={() => {
+        onLogoutClick();
+        hashHistory.push(`/${PageConsts.LOGIN}`);
+      }}>Logout</MenuItem>
     </DropdownButton>
   );
 };
