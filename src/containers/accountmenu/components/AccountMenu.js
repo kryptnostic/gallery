@@ -1,22 +1,24 @@
 import React, { PropTypes } from 'react';
+import { DropdownButton, MenuItem } from 'react-bootstrap';
+import FontAwesome from 'react-fontawesome';
 
 import userProfileImg from '../../../images/user-profile-icon.png';
 import styles from '../styles.module.css';
 
 const AccountMenu = ({}) => {
   return(
-    <div>
-      <img src={userProfileImg} className={styles.avatarIcon} />
-    </div>
+    <DropdownButton
+        title={
+          <span><FontAwesome name="cog" /></span>
+        }>
+      <MenuItem eventKey='1'>Profile</MenuItem>
+      <MenuItem eventKey='2'>Logout</MenuItem>
+    </DropdownButton>
   );
 };
 
 export default AccountMenu;
 
 
-// <Link
-//     to={`/${PageConsts.LOGIN}`}
-//     className={styles.headerNavLink}
-//     onClick={this.onLogoutClick}>
-//   Logout
-// </Link>
+// <span><FontAwesome name="cog" /></span>
+// <span><i className={styles.avatarIcon} src={userProfileImg}></i></span>
