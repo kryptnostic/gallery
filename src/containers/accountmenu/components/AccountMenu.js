@@ -2,7 +2,6 @@ import React, { PropTypes } from 'react';
 import { DropdownButton, MenuItem } from 'react-bootstrap';
 import FontAwesome from 'react-fontawesome';
 
-import userProfileImg from '../../../images/user-profile-icon.png';
 import styles from '../styles.module.css';
 
 const AccountMenu = ({}) => {
@@ -11,7 +10,9 @@ const AccountMenu = ({}) => {
         title={
           <span><FontAwesome name="cog" /></span>
         }
-        pullRight>
+        pullRight
+        id={styles.dropdown}
+        noCaret>
       <MenuItem eventKey='1'>Profile</MenuItem>
       <MenuItem divider />
       <MenuItem eventKey='2'>Logout</MenuItem>
@@ -20,7 +21,3 @@ const AccountMenu = ({}) => {
 };
 
 export default AccountMenu;
-
-
-// <span><FontAwesome name="cog" /></span>
-// <span><i className={styles.avatarIcon} src={userProfileImg}></i></span>
