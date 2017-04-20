@@ -19,7 +19,7 @@ import EnvConsts from '../../utils/Consts/EnvConsts';
 import { ADMIN } from '../../utils/Consts/UserRoleConsts';
 import { getDisplayName } from '../../containers/principals/PrincipalUtils';
 import AllPermissions from '../../containers/permissionssummary/components/AllPermissions';
-import EditProfile from '../../containers/profile/containers/EditProfileContainer';
+import EditProfile from '../../containers/profile/components/EditProfileView';
 
 import TopUtilizersContainer from '../../containers/toputilizers/components/TopUtilizersPage';
 import TopUtilizersFormContainer from '../../containers/toputilizers/containers/TopUtilizersFormContainer';
