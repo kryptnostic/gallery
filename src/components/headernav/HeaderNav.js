@@ -8,6 +8,7 @@ import {
   Link
 } from 'react-router';
 
+import AccountMenu from '../../containers/accountmenu/components/AccountMenu';
 import styles from './headernav.module.css';
 
 import AuthService from '../../utils/AuthService';
@@ -38,12 +39,7 @@ class HeaderNav extends React.Component {
               { greeting }
             </div>
             <div className={styles.headerNavItem}>
-              <Link
-                  to={`/${PageConsts.LOGIN}`}
-                  className={styles.headerNavLink}
-                  onClick={this.onLogoutClick}>
-                Logout
-              </Link>
+              <AccountMenu onLogoutClick={this.onLogoutClick} />
             </div>
           </div>
 
