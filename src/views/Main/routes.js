@@ -20,6 +20,7 @@ import { ADMIN } from '../../utils/Consts/UserRoleConsts';
 import { getDisplayName } from '../../containers/principals/PrincipalUtils';
 import AllPermissions from '../../containers/permissionssummary/components/AllPermissions';
 import EditAccount from '../../containers/profile/components/EditAccountView';
+import Profile from '../../containers/profile/containers/Profile';
 
 import TopUtilizersContainer from '../../containers/toputilizers/components/TopUtilizersPage';
 import TopUtilizersFormContainer from '../../containers/toputilizers/containers/TopUtilizersFormContainer';
@@ -102,6 +103,7 @@ export const makeMainRoutes = () => {
       <Route path={PageConsts.LINK} component={Link} onEnter={requireAuth} />
       <Route path={'entitysets/:id/allpermissions'} component={AllPermissions} onEnter={requireAuth} />
       <Route path={PageConsts.EDIT_ACCOUNT} component={EditAccount} onEnter={requireAuth} />
+      <Route path={PageConsts.PROFILE} component={Profile} onEnter={requireAuth} />
       <Route path="*" component={HomeComponent} onEnter={requireAuth} />
     </Route>
   );

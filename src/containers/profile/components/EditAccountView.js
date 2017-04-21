@@ -11,7 +11,7 @@ export default class EditAccountView extends React.Component {
 
   render() {
     return (
-      <DocumentTitle title="Profile">
+      <DocumentTitle title="Account">
         <Page>
           <Page.Header>
             <Page.Title>Account</Page.Title>
