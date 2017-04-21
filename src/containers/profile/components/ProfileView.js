@@ -2,9 +2,8 @@ import React, { PropTypes } from 'react';
 import DocumentTitle from 'react-document-title';
 
 import Page from '../../../components/page/Page';
-import ProfileAvatar from './ProfileAvatarView';
-import ProfileAbout from './ProfileAboutView';
-import ProfileOrgs from './ProfileOrgsView';
+import ProfileSidePanel from './ProfileSidePanelView';
+import ProfileMainPanel from './ProfileMainPanelView';
 import styles from '../styles.module.css';
 
 const ProfileView = ({}) => {
@@ -16,9 +15,10 @@ const ProfileView = ({}) => {
           <Page.Title>{name}&#39;s Profile</Page.Title>
         </Page.Header>
         <Page.Body>
-          <ProfileAvatar />
-          <ProfileAbout />
-          <ProfileOrgs />
+          <div className={styles.profileWrapper}>
+            <ProfileSidePanel />
+            <ProfileMainPanel />
+          </div>
         </Page.Body>
       </Page>
     </DocumentTitle>

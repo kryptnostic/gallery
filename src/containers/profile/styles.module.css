@@ -1,3 +1,4 @@
+/*** ACCOUNT VIEW ***/
 .orgWrapper {
   margin: 20px;
 }
@@ -9,6 +10,25 @@
 
 .orgRoles {
   color: #a3a8ab;
+}
+
+/*** PROFILE VIEW ***/
+.profileWrapper {
+  display: flex;
+}
+
+.sidePanelWrapper, .mainPanelWrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidePanelWrapper {
+  flex: 1 0 0;
+}
+
+.mainPanelWrapper {
+  flex: 2 0 0;
 }
 
 .avatarWrapper {
