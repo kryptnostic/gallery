@@ -17,6 +17,7 @@ import principalsReducer from '../../containers/principals/PrincipalsReducer';
 import asyncReducer from '../../containers/async/AsyncReducer';
 import datasetsReducer from '../../containers/datasets/DatasetsReducer';
 import visualizationReducer from '../../containers/visualizations/VisualizationReducer';
+import accountReducer from '../../containers/profile/accountReducer';
 import routerReducer from '../router/RouterReducer';
 
 export default function reduxReducer() {
@@ -35,6 +36,7 @@ export default function reduxReducer() {
     async: asyncReducer,
     datasets: datasetsReducer,
     visualizations: visualizationReducer,
+    account: accountReducer,
     router: routerReducer
   });
 }
