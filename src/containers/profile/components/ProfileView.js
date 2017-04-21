@@ -7,7 +7,7 @@ import ProfileMainPanel from './ProfileMainPanelView';
 import ProfileAvatar from './ProfileAvatarView';
 import styles from '../styles.module.css';
 
-const ProfileView = ({ fullName, googleId }) => {
+const ProfileView = ({ fullName, googleId, email }) => {
   const name = 'Corwin Crownover';
   return (
     <DocumentTitle title="Profile">
@@ -21,8 +21,7 @@ const ProfileView = ({ fullName, googleId }) => {
                 fullName={fullName}
                 googleId={googleId} />
             <ProfileMainPanel
-                fullName={fullName}
-                googleId={googleId} />
+                email={email} />
           </div>
         </Page.Body>
       </Page>

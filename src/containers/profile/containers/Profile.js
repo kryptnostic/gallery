@@ -13,7 +13,8 @@ class Profile extends React.Component {
     return(
       <ProfileView
           fullName={this.props.fullName}
-          googleId={this.props.googleId} />
+          googleId={this.props.googleId}
+          email={this.props.email} />
     );
   }
 }
@@ -21,16 +22,19 @@ class Profile extends React.Component {
 function mapStateToProps(state) {
   let fullName = '';
   let googleId = '';
+  let email = '';
 
   if (window.localStorage.profile) {
     const profile = JSON.parse(window.localStorage.profile);
     fullName = profile.name;
     googleId = profile.identities[0].user_id;
+    email = profile.email;
   }
 
   return {
     fullName,
-    googleId
+    googleId,
+    email
   };
 }
 

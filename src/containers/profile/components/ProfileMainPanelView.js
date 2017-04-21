@@ -5,11 +5,10 @@ import ProfileAbout from './ProfileAboutView';
 import ProfileOrgs from './ProfileOrgsView';
 import styles from '../styles.module.css';
 
-const ProfileMainPanel = ({ fullName, googleId }) => {
+const ProfileMainPanel = ({ email }) => {
   return (
     <div className={styles.mainPanelWrapper}>
-
-      <ProfileAbout />
+      <ProfileAbout email={email} />
       <ProfileOrgs />
     </div>
   );
