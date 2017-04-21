@@ -17,6 +17,14 @@
   display: flex;
 }
 
+.headerWrapper {
+  position: relative;
+}
+
+.avatarWrapper {
+  margin-bottom: 40px;
+}
+
 .sidePanelWrapper, .mainPanelWrapper {
   position: relative;
   display: flex;

@@ -7,7 +7,7 @@ import styles from '../styles.module.css';
 const ProfileAvatar = ({ fullName, googleId }) => {
   return (
     <div className={styles.avatarWrapper}>
-      <Avatar name={fullName} googleId={googleId} size="188" className={styles.avatar} />
+      <Avatar name={fullName} googleId={googleId} size="180" className={styles.avatar} />
     </div>
   );
 };

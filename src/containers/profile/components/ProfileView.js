@@ -4,6 +4,7 @@ import DocumentTitle from 'react-document-title';
 import Page from '../../../components/page/Page';
 import ProfileSidePanel from './ProfileSidePanelView';
 import ProfileMainPanel from './ProfileMainPanelView';
+import ProfileAvatar from './ProfileAvatarView';
 import styles from '../styles.module.css';
 
 const ProfileView = ({ fullName, googleId }) => {
@@ -19,7 +20,9 @@ const ProfileView = ({ fullName, googleId }) => {
             <ProfileSidePanel
                 fullName={fullName}
                 googleId={googleId} />
-            <ProfileMainPanel />
+            <ProfileMainPanel
+                fullName={fullName}
+                googleId={googleId} />
           </div>
         </Page.Body>
       </Page>
