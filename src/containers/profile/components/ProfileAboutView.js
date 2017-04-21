@@ -1,14 +1,18 @@
 import React, { PropTypes } from 'react';
 
+import ProfileSectionWrapper from '../../../components/profile/ProfileSectionWrapper';
 import styles from '../styles.module.css';
 
 const ProfileAbout = ({}) => {
-  const name = 'Corwin Crownover';
-
+  const header = "About";
   return (
-    <div>
-      {name}
-    </div>
+    <ProfileSectionWrapper header={header}>
+      <div className={styles.sectionContent}>
+        <div>blah</div>
+        <div>blablahblahblahblahh</div>
+        <div>blablahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahh</div>
+      </div>
+    </ProfileSectionWrapper>
   );
 };
 

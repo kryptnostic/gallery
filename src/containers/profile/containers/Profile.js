@@ -11,14 +11,26 @@ class Profile extends React.Component {
 
   render() {
     return(
-      <ProfileView />
+      <ProfileView
+          fullName={this.props.fullName}
+          googleId={this.props.googleId} />
     );
   }
 }
 
 function mapStateToProps(state) {
-  return {
+  let fullName = '';
+  let googleId = '';
 
+  if (window.localStorage.profile) {
+    const profile = JSON.parse(window.localStorage.profile);
+    fullName = profile.name;
+    googleId = profile.identities[0].user_id;
+  }
+
+  return {
+    fullName,
+    googleId
   };
 }
 

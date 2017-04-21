@@ -25,18 +25,24 @@
 
 .sidePanelWrapper {
   flex: 1 0 0;
+  align-items: center;
+  position: relative;
 }
 
 .mainPanelWrapper {
-  flex: 2 0 0;
+  flex: 4 0 0;
+  margin: 0 20px;
 }
 
-.avatarWrapper {
-
+.sectionWrapper {
+  margin-bottom: 40px;
 }
 
-.avatar {
-  height: 150px;
-  width: 150px;
-  border: 6px solid grey;
+.sectionHeader {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.sectionContent {
+  color: grey;
 }

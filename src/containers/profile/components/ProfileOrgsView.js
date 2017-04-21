@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 
+import ProfileSectionWrapper from '../../../components/profile/ProfileSectionWrapper';
 import styles from '../styles.module.css';
 
 const ProfileOrgs = ({}) => {
@@ -18,10 +19,14 @@ const ProfileOrgs = ({}) => {
     );
   });
 
+  const header = 'Organizations';
+
   return (
-    <div>
-      {orgElements}
-    </div>
+    <ProfileSectionWrapper header={header}>
+      <div className={styles.sectionContent}>
+        {orgElements}
+      </div>
+    </ProfileSectionWrapper>
   );
 };
 

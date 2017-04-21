@@ -4,7 +4,7 @@ import ProfileAbout from './ProfileAboutView';
 import ProfileOrgs from './ProfileOrgsView';
 import styles from '../styles.module.css';
 
-const ProfileMainPanel = ({}) => {
+const ProfileMainPanel = () => {
   return (
     <div className={styles.mainPanelWrapper}>
       <ProfileAbout />
