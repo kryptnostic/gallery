@@ -8,7 +8,7 @@ const getRoles = (org) => {
 }
 
 const renderOrgs = (orgs) => {
-  if (!orgs) {
+  if (orgs.length === 0) {
     return 'No organizations.'
   }
 
@@ -22,16 +22,8 @@ const renderOrgs = (orgs) => {
   });
 };
 
-const ProfileOrgs = ({}) => {
-  const orgs = [
-    {
-      title: 'Cats'
-    },
-    {
-      title: 'Dogs'
-    }
-  ];
-
+const ProfileOrgs = ({ orgs }) => {
+  console.log('orgs:', orgs);
   const header = 'Organizations';
 
   return (
