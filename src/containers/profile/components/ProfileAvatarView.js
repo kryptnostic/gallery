@@ -3,10 +3,10 @@ import React, { PropTypes } from 'react';
 import defaultAvatar from '../../../images/user-profile-icon.png';
 import styles from '../styles.module.css';
 
-const ProfileAvatar = ({}) => {
+const ProfileAvatar = () => {
   return (
-    <div>
-      <image src={defaultAvatar} className={styles.avatar} />
+    <div className={styles.avatarWrapper}>
+      <img src={defaultAvatar} className={styles.avatar} />
     </div>
   );
 };
