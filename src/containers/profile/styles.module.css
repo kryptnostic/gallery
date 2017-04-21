@@ -53,10 +53,15 @@
 
 .sectionContent {
   color: grey;
+  font-size: 16px;
+}
+
+.contentItemWrapper {
+  margin-bottom: 10px;
 }
 
 .contentItemLabel {
-  font-weight: bold;
+  color: black;
   display: inline-block;
   margin-right: 6px;
 }

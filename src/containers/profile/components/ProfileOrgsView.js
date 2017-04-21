@@ -3,6 +3,25 @@ import React, { PropTypes } from 'react';
 import ProfileSectionWrapper from '../../../components/profile/ProfileSectionWrapper';
 import styles from '../styles.module.css';
 
+const getRoles = (org) => {
+  return 'Owner, admin';
+}
+
+const renderOrgs = (orgs) => {
+  if (!orgs) {
+    return 'No organizations.'
+  }
+
+  return orgs.map((org) => {
+    return (
+      <div className={styles.contentItemWrapper}>
+        <div className={styles.contentItemLabel}>{org.title}:</div>
+        <div className={styles.contentItemDescription}>{getRoles(org)}</div>
+      </div>
+    );
+  });
+};
+
 const ProfileOrgs = ({}) => {
   const orgs = [
     {
@@ -13,18 +32,12 @@ const ProfileOrgs = ({}) => {
     }
   ];
 
-  const orgElements = orgs.map((org) => {
-    return (
-      <div>{org.title}</div>
-    );
-  });
-
   const header = 'Organizations';
 
   return (
     <ProfileSectionWrapper header={header}>
       <div className={styles.sectionContent}>
-        {orgElements}
+        {renderOrgs(orgs)}
       </div>
     </ProfileSectionWrapper>
   );
