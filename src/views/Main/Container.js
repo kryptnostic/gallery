@@ -66,7 +66,6 @@ class Container extends React.Component {
   }
 
   render() {
-
     return (
       <DocumentTitle title={PageConsts.DEFAULT_DOCUMENT_TITLE}>
         <div className={styles.appWrapper}>
@@ -90,16 +89,10 @@ class Container extends React.Component {
 }
 
 function mapStateToProps(state) {
-  let fullName = '';
-  let googleId = '';
-  let email = '';
-
-  if (window.localStorage.profile) {
-    const profile = JSON.parse(window.localStorage.profile);
-    fullName = profile.name;
-    googleId = profile.identities[0].user_id;
-    email = profile.email;
-  }
+  const account = state.get('account');
+  const fullName = account.get('fullName');
+  const googleId = account.get('googleId');
+  const email = account.get('email');
 
   return {
     fullName,
@@ -109,7 +102,15 @@ function mapStateToProps(state) {
 }
 
 function mergeProps(stateProps, dispatchProps, ownProps) {
-  const { fullName, googleId, email } = stateProps;
+  let fullName;
+  let googleId;
+  let email;
+  if (window.localStorage.profile) {
+    const profile = JSON.parse(window.localStorage.profile);
+    fullName = profile.name;
+    googleId = profile.identities[0].user_id;
+    email = profile.email;
+  }
   const { dispatch } = dispatchProps;
   const accountData = {
     fullName,
@@ -119,6 +120,9 @@ function mergeProps(stateProps, dispatchProps, ownProps) {
 
   return {
     ...ownProps,
+    fullName,
+    googleId,
+    email,
     saveAccountData: () => {
       dispatch(accountActionFactory.saveAccountData(Immutable.fromJS(accountData)));
     },
