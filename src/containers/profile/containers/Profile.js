@@ -5,7 +5,6 @@ import Immutable from 'immutable';
 
 import ProfileView from '../components/ProfileView';
 import { fetchOrganizationsRequest } from '../../organizations/actions/OrganizationsActionFactory';
-import { sortOrganizations } from '../../organizations/utils/OrgsUtils';
 import { getSortedOrgs } from '../AccountHelpers.js';
 
 class Profile extends React.Component {

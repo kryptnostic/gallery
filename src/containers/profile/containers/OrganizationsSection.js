@@ -5,7 +5,7 @@ import Immutable from 'immutable';
 
 import OrganizationSectionView from '../components/OrganizationSectionView';
 import { fetchOrganizationsRequest } from '../../organizations/actions/OrganizationsActionFactory';
-import { sortOrganizations } from '../../organizations/utils/OrgsUtils';
+import { getSortedOrgs } from '../AccountHelpers.js';
 
 class OrganizationsSection extends React.Component {
   static propTypes = {
@@ -19,45 +19,12 @@ class OrganizationsSection extends React.Component {
     this.props.fetchOrganizationsRequest();
   }
 
-  getRoles = (org) => {
-    const roles = [];
-    if (org.get('isOwner')) {
-      roles.push('Owner');
-    }
-    let orgRoles = org.get('roles').map((role) => {
-      return role.get('id').slice(org.get('id').length + 1);
-    });
-    orgRoles = orgRoles.toJS();
-
-    return roles.concat(orgRoles).join(', ');
-  }
-
-  getSortedOrgs = () => {
-    const { visibleOrganizationIds, organizations, auth } = this.props;
-
-    let sortedOrgs = sortOrganizations(visibleOrganizationIds, organizations, auth);
-    sortedOrgs = sortedOrgs.yourOrgs.concat(sortedOrgs.memberOfOrgs);
-
-    sortedOrgs = sortedOrgs.map((org) => {
-      const id = org.get('id');
-      const title = org.get('title');
-      const roles = this.getRoles(org);
-
-      return {
-        id,
-        title,
-        roles
-      };
-    });
-
-    return sortedOrgs;
-  }
-
   render() {
+    const { visibleOrganizationIds, organizations, auth } = this.props;
     return (
-      <div>
-        <OrganizationSectionView header="Your Organizations" content={this.getSortedOrgs()} />
-      </div>
+      <OrganizationSectionView
+          header="Your Organizations"
+          content={getSortedOrgs(visibleOrganizationIds, organizations, auth)} />
     );
   }
 }
