@@ -6,6 +6,7 @@ import Immutable from 'immutable';
 import ProfileView from '../components/ProfileView';
 import { fetchOrganizationsRequest } from '../../organizations/actions/OrganizationsActionFactory';
 import { sortOrganizations } from '../../organizations/utils/OrgsUtils';
+import { getSortedOrgs } from '../AccountHelpers.js';
 
 class Profile extends React.Component {
   static propTypes = {
@@ -13,66 +14,24 @@ class Profile extends React.Component {
   }
 
   componentDidMount() {
-    fetchOrganizationsRequest();
-  }
-
-  getRoles = (org) => {
-    const roles = [];
-    if (org.get('isOwner')) {
-      roles.push('Owner');
-    }
-    let orgRoles = org.get('roles').map((role) => {
-      return role.get('id').slice(org.get('id').length + 1);
-    });
-    orgRoles = orgRoles.toJS();
-
-    return roles.concat(orgRoles).join(', ');
-  }
-
-  getSortedOrgs = () => {
-    const { visibleOrganizationIds, organizations, auth } = this.props;
-
-    let sortedOrgs = sortOrganizations(visibleOrganizationIds, organizations, auth);
-    sortedOrgs = sortedOrgs.yourOrgs.concat(sortedOrgs.memberOfOrgs);
-
-    sortedOrgs = sortedOrgs.map((org) => {
-      const id = org.get('id');
-      const title = org.get('title');
-      const roles = this.getRoles(org);
-
-      return {
-        id,
-        title,
-        roles
-      };
-    });
-
-    return sortedOrgs;
+    this.props.fetchOrganizationsRequest();
   }
 
   render() {
+    const { visibleOrganizationIds, organizations, auth } = this.props;
+
     return(
       <ProfileView
           fullName={this.props.fullName}
           googleId={this.props.googleId}
           email={this.props.email}
-          orgs={this.getSortedOrgs()} />
+          orgs={getSortedOrgs(visibleOrganizationIds, organizations, auth)} />
     );
   }
 }
 
 function mapStateToProps(state) {
-  let fullName = '';
-  let googleId = '';
-  let email = '';
-
-  if (window.localStorage.profile) {
-    const profile = JSON.parse(window.localStorage.profile);
-    fullName = profile.name;
-    googleId = profile.identities[0].user_id;
-    email = profile.email;
-  }
-
+  const account = state.get('account');
   const organizations = state.getIn(['organizations', 'organizations'], Immutable.Map());
   const visibleOrganizationIds = state.getIn(
     ['organizations', 'visibleOrganizationIds'],
@@ -80,9 +39,9 @@ function mapStateToProps(state) {
   );
 
   return {
-    fullName,
-    googleId,
-    email,
+    fullName: account.get('fullName'),
+    googleId: account.get('googleId'),
+    email: account.get('email'),
     organizations,
     visibleOrganizationIds
   };
@@ -90,7 +49,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   const actions = {
-
+    fetchOrganizationsRequest
   };
 
   return bindActionCreators(actions, dispatch);
