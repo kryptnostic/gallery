@@ -8,12 +8,11 @@ import ProfileAvatar from './ProfileAvatarView';
 import styles from '../styles.module.css';
 
 const ProfileView = ({ fullName, googleId, email, orgs }) => {
-  const name = 'Corwin Crownover';
   return (
     <DocumentTitle title="Profile">
       <Page>
         <Page.Header>
-          <Page.Title>{name}</Page.Title>
+          <Page.Title>{fullName}</Page.Title>
         </Page.Header>
         <Page.Body>
           <div className={styles.profileWrapper}>
