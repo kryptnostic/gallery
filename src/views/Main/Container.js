@@ -9,7 +9,6 @@ import HeaderNav from '../../components/headernav/HeaderNav';
 import SideNav from '../../components/sidenav/SideNav';
 import PageConsts from '../../utils/Consts/PageConsts';
 import RequestPermissionsModal from '../../containers/permissions/components/RequestPermissionsModal';
-import { getSortedOrgs } from '../../containers/profile/AccountHelpers';
 import styles from './styles.module.css';
 
 class Container extends React.Component {
@@ -23,7 +22,8 @@ class Container extends React.Component {
     loadPropertyTypes: PropTypes.func.isRequired,
     loadEntityTypes: PropTypes.func.isRequired,
     fullName: PropTypes.string.isRequired,
-    googleId: PropTypes.string.isRequired
+    googleId: PropTypes.string.isRequired,
+    saveAccountData: PropTypes.func.isRequired
   };
 
   static childContextTypes = {
@@ -92,12 +92,10 @@ function mapStateToProps(state) {
   const account = state.get('account');
   const fullName = account.get('fullName');
   const googleId = account.get('googleId');
-  const email = account.get('email');
 
   return {
     fullName,
-    googleId,
-    email
+    googleId
   };
 }
 

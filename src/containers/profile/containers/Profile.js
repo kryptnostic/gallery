@@ -1,15 +1,23 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Immutable from 'immutable';
+import AuthService from '../../../utils/AuthService';
 
 import ProfileView from '../components/ProfileView';
 import { fetchOrganizationsRequest } from '../../organizations/actions/OrganizationsActionFactory';
-import { getSortedOrgs } from '../AccountHelpers.js';
+import { getSortedOrgs } from '../AccountHelpers';
 
 class Profile extends React.Component {
   static propTypes = {
-
+    fullName: PropTypes.string.isRequired,
+    googleId: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    visibleOrganizationIds: PropTypes.object.isRequired,
+    organizations: PropTypes.object.isRequired,
+    auth: React.PropTypes.instanceOf(AuthService).isRequired,
+    fetchOrganizationsRequest: PropTypes.func.isRequired
   }
 
   componentDidMount() {
@@ -17,9 +25,16 @@ class Profile extends React.Component {
   }
 
   render() {
-    const { fullName, googleId, email, visibleOrganizationIds, organizations, auth } = this.props;
+    const {
+      fullName,
+      googleId,
+      email,
+      visibleOrganizationIds,
+      organizations,
+      auth
+    } = this.props;
 
-    return(
+    return (
       <ProfileView
           fullName={fullName}
           googleId={googleId}

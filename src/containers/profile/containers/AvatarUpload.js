@@ -1,9 +1,9 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Avatar from 'react-avatar';
 
 import PhotoUpload from '../../../components/photos/PhotoUpload';
-import UserProfileIcon from '../../../images/user-profile-icon.png';
 
 // TODO: Implememnt
 class AvatarUpload extends React.Component {

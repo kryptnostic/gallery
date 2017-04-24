@@ -1,11 +1,12 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Immutable from 'immutable';
 
 import OrganizationSectionView from '../components/OrganizationSectionView';
 import { fetchOrganizationsRequest } from '../../organizations/actions/OrganizationsActionFactory';
-import { getSortedOrgs } from '../AccountHelpers.js';
+import { getSortedOrgs } from '../AccountHelpers';
 
 class OrganizationsSection extends React.Component {
   static propTypes = {

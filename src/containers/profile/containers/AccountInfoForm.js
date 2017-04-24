@@ -1,11 +1,13 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import ProfileForm from '../../../components/profile/ProfileForm';
 
 class AccountInfoForm extends React.Component {
   static propTypes = {
-
+    userId: PropTypes.string.isRequired,
+    jwtToken: PropTypes.string.isRequired
   }
 
   getContent = () => {

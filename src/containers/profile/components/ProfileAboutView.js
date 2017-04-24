@@ -1,10 +1,11 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 import ProfileSectionWrapper from '../../../components/profile/ProfileSectionWrapper';
 import styles from '../styles.module.css';
 
 const ProfileAbout = ({ email }) => {
-  const header = "About";
+  const header = 'About';
   return (
     <ProfileSectionWrapper header={header}>
       <div className={styles.sectionContent}>
@@ -18,7 +19,7 @@ const ProfileAbout = ({ email }) => {
 };
 
 ProfileAbout.propTypes = {
-
+  email: PropTypes.string.isRequired
 };
 
 export default ProfileAbout;

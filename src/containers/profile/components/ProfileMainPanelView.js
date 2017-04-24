@@ -1,6 +1,6 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import ProfileAvatar from './ProfileAvatarView';
 import ProfileAbout from './ProfileAboutView';
 import ProfileOrgs from './ProfileOrgsView';
 import styles from '../styles.module.css';
@@ -15,7 +15,8 @@ const ProfileMainPanel = ({ email, orgs }) => {
 };
 
 ProfileMainPanel.propTypes = {
-
+  email: PropTypes.string.isRequired,
+  orgs: PropTypes.array.isRequired
 };
 
 export default ProfileMainPanel;

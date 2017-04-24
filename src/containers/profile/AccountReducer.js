@@ -11,7 +11,6 @@ export default function reducer(state :Immutable.Map<*, *> = INITIAL_STATE, acti
   switch (action.type) {
 
     case actionTypes.SAVE_ACCOUNT_DATA:
-    console.log('account data reducer:', action.data.toJS());
       return state.set('fullName', action.data.get('fullName'))
         .set('googleId', action.data.get('googleId'))
         .set('email', action.data.get('email'));

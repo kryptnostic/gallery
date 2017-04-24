@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 import ProfileSectionWrapper from '../../../components/profile/ProfileSectionWrapper';
 import styles from '../styles.module.css';
@@ -18,9 +19,9 @@ const renderContent = (content) => {
   });
 
   return renderedUserOrgs;
-}
+};
 
-const OrganizationSectionView = ({ header, content }) => {
+const OrganizationSectionView = ({ content }) => {
   return (
     <ProfileSectionWrapper header="Your Organizations">
       <div className={styles.contentWrapper}>
@@ -31,7 +32,6 @@ const OrganizationSectionView = ({ header, content }) => {
 };
 
 OrganizationSectionView.propTypes = {
-  header: PropTypes.string.isRequired,
   content: PropTypes.array.isRequired
 };
 
