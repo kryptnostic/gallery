@@ -17,13 +17,13 @@ class Profile extends React.Component {
   }
 
   render() {
-    const { visibleOrganizationIds, organizations, auth } = this.props;
+    const { fullName, googleId, email, visibleOrganizationIds, organizations, auth } = this.props;
 
     return(
       <ProfileView
-          fullName={this.props.fullName}
-          googleId={this.props.googleId}
-          email={this.props.email}
+          fullName={fullName}
+          googleId={googleId}
+          email={email}
           orgs={getSortedOrgs(visibleOrganizationIds, organizations, auth)} />
     );
   }
