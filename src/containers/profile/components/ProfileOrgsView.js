@@ -4,11 +4,6 @@ import PropTypes from 'prop-types';
 import ProfileSectionWrapper from '../../../components/profile/ProfileSectionWrapper';
 import styles from '../styles.module.css';
 
-// TODO: COMPLETE
-const getRoles = (org) => {
-  return 'Owner, admin';
-};
-
 const renderOrgs = (orgs) => {
   if (orgs.length === 0) {
     return 'No organizations.';
@@ -18,7 +13,7 @@ const renderOrgs = (orgs) => {
     return (
       <div className={styles.contentItemWrapper} key={org.id}>
         <div className={styles.contentItemLabel}>{org.title}:</div>
-        <div className={styles.contentItemDescription}>{getRoles(org)}</div>
+        <div className={styles.contentItemDescription}>{org.roles}</div>
       </div>
     );
   });
