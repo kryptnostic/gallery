@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import ProfileAbout from './ProfileAboutView';
-import ProfileOrgs from './ProfileOrgsView';
 import styles from '../styles.module.css';
 
 const ProfileMainPanel = ({ email }) => {

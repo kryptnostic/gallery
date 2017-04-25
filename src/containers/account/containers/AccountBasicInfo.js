@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import ProfileForm from '../../../components/profile/ProfileForm';
 
-class BasicInfoForm extends React.Component {
+class AccountBasicInfo extends React.Component {
   static propTypes = {
     firstName: PropTypes.string.isRequired,
     lastName: PropTypes.string.isRequired,
@@ -53,4 +53,4 @@ function mapStateToProps() {
   };
 }
 
-export default connect(mapStateToProps)(BasicInfoForm);
+export default connect(mapStateToProps)(AccountBasicInfo);

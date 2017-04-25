@@ -4,7 +4,7 @@ import DocumentTitle from 'react-document-title';
 import Immutable from 'immutable';
 
 import * as edmActionFactories from '../../containers/edm/EdmActionFactories';
-import * as accountActionFactory from '../../containers/profile/AccountActionFactory';
+import * as accountActionFactory from '../../containers/account/AccountActionFactory';
 import HeaderNav from '../../components/headernav/HeaderNav';
 import SideNav from '../../components/sidenav/SideNav';
 import PageConsts from '../../utils/Consts/PageConsts';

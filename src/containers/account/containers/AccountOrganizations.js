@@ -4,11 +4,11 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Immutable from 'immutable';
 
-import OrganizationSectionView from '../components/OrganizationSectionView';
+import AccountOrganizationsView from '../components/AccountOrganizationsView';
 import { fetchOrganizationsRequest } from '../../organizations/actions/OrganizationsActionFactory';
 import { getSortedOrgs } from '../AccountHelpers';
 
-class OrganizationsSection extends React.Component {
+class AccountOrganizations extends React.Component {
   static propTypes = {
     auth: PropTypes.object.isRequired,
     fetchOrganizationsRequest: PropTypes.func.isRequired,
@@ -23,7 +23,7 @@ class OrganizationsSection extends React.Component {
   render() {
     const { visibleOrganizationIds, organizations, auth } = this.props;
     return (
-      <OrganizationSectionView
+      <AccountOrganizationsView
           header="Your Organizations"
           content={getSortedOrgs(visibleOrganizationIds, organizations, auth)} />
     );
@@ -52,4 +52,4 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(actions, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(OrganizationsSection);
+export default connect(mapStateToProps, mapDispatchToProps)(AccountOrganizations);

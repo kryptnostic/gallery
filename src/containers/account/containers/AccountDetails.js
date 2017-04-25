@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import ProfileForm from '../../../components/profile/ProfileForm';
 
-class AccountInfoForm extends React.Component {
+class AccountDetails extends React.Component {
   static propTypes = {
     userId: PropTypes.string.isRequired,
     jwtToken: PropTypes.string.isRequired
@@ -45,4 +45,4 @@ function mapStateToProps() {
   };
 }
 
-export default connect(mapStateToProps)(AccountInfoForm);
+export default connect(mapStateToProps)(AccountDetails);

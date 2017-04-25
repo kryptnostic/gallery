@@ -6,7 +6,7 @@ import Avatar from 'react-avatar';
 import PhotoUpload from '../../../components/photos/PhotoUpload';
 
 // TODO: Implememnt
-class AvatarUpload extends React.Component {
+class AccountAvatarUpload extends React.Component {
   static propTypes = {
     name: PropTypes.string.isRequired,
     id: PropTypes.string
@@ -35,4 +35,4 @@ function mapStateToProps() {
   };
 }
 
-export default connect(mapStateToProps)(AvatarUpload);
+export default connect(mapStateToProps)(AccountAvatarUpload);

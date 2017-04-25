@@ -21,7 +21,7 @@ const renderContent = (content) => {
   return renderedUserOrgs;
 };
 
-const OrganizationSectionView = ({ content }) => {
+const AccountOrganizationsView = ({ content }) => {
   return (
     <ProfileSectionWrapper header="Your Organizations">
       <div className={styles.contentWrapper}>
@@ -31,8 +31,8 @@ const OrganizationSectionView = ({ content }) => {
   );
 };
 
-OrganizationSectionView.propTypes = {
+AccountOrganizationsView.propTypes = {
   content: PropTypes.array.isRequired
 };
 
-export default OrganizationSectionView;
+export default AccountOrganizationsView;
