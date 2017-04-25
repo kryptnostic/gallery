@@ -19,7 +19,13 @@ class Profile extends React.Component {
   }
 
   getGoogleId = () => {
-    return this.props.id.slice(14);
+    const reg = /\bgoogle-oauth2\|/;
+    const id = this.props.id;
+    if (reg.exec(id)[0].length > 0) {
+      return id.replace(reg, '');
+    }
+
+    return null;
   }
 
   render() {
