@@ -24,7 +24,6 @@ import Profile from '../../containers/profile/containers/Profile';
 
 import TopUtilizersContainer from '../../containers/toputilizers/components/TopUtilizersPage';
 import TopUtilizersFormContainer from '../../containers/toputilizers/containers/TopUtilizersFormContainer';
-import TopUtilizersResultsContainer from '../../containers/toputilizers/containers/TopUtilizersResultsContainer';
 
 import OrganizationsContainerComponent from '../../containers/organizations/components/OrganizationsContainerComponent';
 import OrganizationDetailsComponent from '../../containers/organizations/components/OrganizationDetailsComponent';
