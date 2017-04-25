@@ -54,7 +54,6 @@ class HeaderNav extends React.Component {
 
 HeaderNav.propTypes = {
   auth: React.PropTypes.instanceOf(AuthService),
-  isAdmin: React.PropTypes.bool,
   name: React.PropTypes.string,
   fullName: React.PropTypes.string,
   googleId: React.PropTypes.string

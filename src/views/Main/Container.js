@@ -1,13 +1,15 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import DocumentTitle from 'react-document-title';
-import styles from './styles.module.css';
+import Immutable from 'immutable';
 
 import * as edmActionFactories from '../../containers/edm/EdmActionFactories';
+import * as accountActionFactory from '../../containers/account/AccountActionFactory';
 import HeaderNav from '../../components/headernav/HeaderNav';
 import SideNav from '../../components/sidenav/SideNav';
 import PageConsts from '../../utils/Consts/PageConsts';
 import RequestPermissionsModal from '../../containers/permissions/components/RequestPermissionsModal';
+import styles from './styles.module.css';
 
 class Container extends React.Component {
   static contextTypes = {
@@ -20,7 +22,8 @@ class Container extends React.Component {
     loadPropertyTypes: PropTypes.func.isRequired,
     loadEntityTypes: PropTypes.func.isRequired,
     fullName: PropTypes.string.isRequired,
-    googleId: PropTypes.string.isRequired
+    googleId: PropTypes.string.isRequired,
+    saveAccountData: PropTypes.func.isRequired
   };
 
   static childContextTypes = {
@@ -36,6 +39,7 @@ class Container extends React.Component {
     if (this.props.route.auth.loggedIn()) {
       this.props.loadPropertyTypes();
       this.props.loadEntityTypes();
+      this.props.saveAccountData();
     }
   }
 
@@ -62,7 +66,6 @@ class Container extends React.Component {
   }
 
   render() {
-
     return (
       <DocumentTitle title={PageConsts.DEFAULT_DOCUMENT_TITLE}>
         <div className={styles.appWrapper}>
@@ -85,15 +88,10 @@ class Container extends React.Component {
   }
 }
 
-function mapStateToProps() {
-  let fullName = '';
-  let googleId = '';
-
-  if (window.localStorage.profile) {
-    const profile = JSON.parse(window.localStorage.profile);
-    fullName = profile.name;
-    googleId = profile.identities[0].user_id;
-  }
+function mapStateToProps(state) {
+  const account = state.get('account');
+  const fullName = account.get('fullName');
+  const googleId = account.get('googleId');
 
   return {
     fullName,
@@ -101,8 +99,31 @@ function mapStateToProps() {
   };
 }
 
-function mapDispatchToProps(dispatch) {
+function mergeProps(stateProps, dispatchProps, ownProps) {
+  let fullName;
+  let googleId;
+  let email;
+  if (window.localStorage.profile) {
+    const profile = JSON.parse(window.localStorage.profile);
+    fullName = profile.name;
+    googleId = profile.identities[0].user_id;
+    email = profile.email;
+  }
+  const { dispatch } = dispatchProps;
+  const accountData = {
+    fullName,
+    googleId,
+    email
+  };
+
   return {
+    ...ownProps,
+    fullName,
+    googleId,
+    email,
+    saveAccountData: () => {
+      dispatch(accountActionFactory.saveAccountData(Immutable.fromJS(accountData)));
+    },
     loadPropertyTypes: () => {
       dispatch(edmActionFactories.allPropertyTypesRequest());
     },
@@ -112,4 +133,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Container);
+export default connect(mapStateToProps, null, mergeProps)(Container);

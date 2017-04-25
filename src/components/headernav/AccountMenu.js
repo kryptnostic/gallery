@@ -16,8 +16,8 @@ const AccountMenu = ({ avatar, onLogoutClick }) => {
         noCaret>
       <MenuItem
           onSelect={() => {
-            hashHistory.push(`/${PageConsts.EDIT_ACCOUNT}`);
-          }}>Profile
+            hashHistory.push(`/${PageConsts.ACCOUNT}`);
+          }}>Account
       </MenuItem>
       <MenuItem divider />
       <MenuItem

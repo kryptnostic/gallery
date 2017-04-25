@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react';
 import styles from './styles.module.css';
 
-const ProfileSectionWrapper = ({ header, ...props }) => {
+const AccountSectionWrapper = ({ header, ...props }) => {
   return (
-    <form className={styles.profileFormWrapper}>
+    <form className={styles.accountFormWrapper}>
       <div className={styles.header}>
         {header}
       </div>
@@ -14,8 +14,9 @@ const ProfileSectionWrapper = ({ header, ...props }) => {
   );
 };
 
-ProfileSectionWrapper.propTypes = {
-  header: PropTypes.string.isRequired
+AccountSectionWrapper.propTypes = {
+  header: PropTypes.string.isRequired,
+  children: PropTypes.object.isRequired
 };
 
-export default ProfileSectionWrapper;
+export default AccountSectionWrapper;

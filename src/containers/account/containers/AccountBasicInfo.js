@@ -1,9 +1,10 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import ProfileForm from '../../../components/profile/ProfileForm';
+import AccountForm from '../../../components/account/AccountForm';
 
-class BasicInfoForm extends React.Component {
+class AccountBasicInfo extends React.Component {
   static propTypes = {
     firstName: PropTypes.string.isRequired,
     lastName: PropTypes.string.isRequired,
@@ -35,7 +36,7 @@ class BasicInfoForm extends React.Component {
 
   render() {
     return (
-      <ProfileForm
+      <AccountForm
           header={'Basic Info'}
           content={this.getContent()} />
     );
@@ -52,4 +53,4 @@ function mapStateToProps() {
   };
 }
 
-export default connect(mapStateToProps)(BasicInfoForm);
+export default connect(mapStateToProps)(AccountBasicInfo);

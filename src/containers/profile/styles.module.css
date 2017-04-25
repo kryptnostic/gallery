@@ -1,16 +1,56 @@
-.contentWrapper {
-
+.profileWrapper {
+  display: flex;
 }
 
-.orgWrapper {
-  margin: 20px;
+.headerWrapper {
+  position: relative;
 }
 
-.orgTitle {
+.avatarWrapper {
+  margin-bottom: 40px;
+}
+
+.sidePanelWrapper, .mainPanelWrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidePanelWrapper {
+  flex: 1 0 0;
+  align-items: center;
+  position: relative;
+}
+
+.mainPanelWrapper {
+  flex: 4 0 0;
+  margin: 0 20px;
+}
+
+.sectionWrapper {
+  margin-bottom: 40px;
+}
+
+.sectionHeader {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.sectionContent {
+  color: #818181;
   font-size: 16px;
-  margin-bottom: 4px;
 }
 
-.orgRoles {
-  color: #a3a8ab;
+.contentItemWrapper {
+  margin-bottom: 10px;
+}
+
+.contentItemLabel {
+  color: black;
+  display: inline-block;
+  margin-right: 6px;
+}
+
+.contentItemDescription {
+  display: inline-block;
 }

@@ -1,0 +1,1 @@
+export const SAVE_ACCOUNT_DATA = 'SAVE_ACCOUNT_DATA';
