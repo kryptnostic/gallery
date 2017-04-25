@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import ProfileAvatar from './ProfileAvatarView';
+import ProfileAvatarView from './ProfileAvatarView';
 import styles from '../styles.module.css';
 
 const ProfileSidePanel = ({ nickname, googleId }) => {
   return (
     <div className={styles.sidePanelWrapper}>
-      <ProfileAvatar
+      <ProfileAvatarView
           nickname={nickname}
           googleId={googleId} />
     </div>
