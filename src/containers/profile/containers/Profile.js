@@ -25,11 +25,8 @@ class Profile extends React.Component {
   componentDidMount() {
     PrincipalsApi.getUser(this.props.id)
       .then((user) => {
-        console.log('user:', user);
         this.setState({ user });
       });
-
-    PrincipalsApi.getAllUsers().then((users) => {console.log('all users:', users)});
   }
 
   getGoogleId = () => {
@@ -40,7 +37,7 @@ class Profile extends React.Component {
 
     return (
       <ProfileView
-          fullName={this.state.user.nickname}
+          nickname={this.state.user.nickname}
           googleId={this.getGoogleId()}
           email={this.state.user.email} />
     );

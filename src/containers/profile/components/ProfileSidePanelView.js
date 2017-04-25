@@ -4,18 +4,18 @@ import PropTypes from 'prop-types';
 import ProfileAvatar from './ProfileAvatarView';
 import styles from '../styles.module.css';
 
-const ProfileSidePanel = ({ fullName, googleId }) => {
+const ProfileSidePanel = ({ nickname, googleId }) => {
   return (
     <div className={styles.sidePanelWrapper}>
       <ProfileAvatar
-          fullName={fullName}
+          nickname={nickname}
           googleId={googleId} />
     </div>
   );
 };
 
 ProfileSidePanel.propTypes = {
-  fullName: PropTypes.string.isRequired,
+  nickname: PropTypes.string.isRequired,
   googleId: PropTypes.string.isRequired
 };
 

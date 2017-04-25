@@ -7,17 +7,17 @@ import ProfileSidePanel from './ProfileSidePanelView';
 import ProfileMainPanel from './ProfileMainPanelView';
 import styles from '../styles.module.css';
 
-const ProfileView = ({ fullName, googleId, email }) => {
+const ProfileView = ({ nickname, googleId, email }) => {
   return (
     <DocumentTitle title="Profile">
       <Page>
         <Page.Header>
-          <Page.Title>{fullName}</Page.Title>
+          <Page.Title>{nickname}</Page.Title>
         </Page.Header>
         <Page.Body>
           <div className={styles.profileWrapper}>
             <ProfileSidePanel
-                fullName={fullName}
+                nickname={nickname}
                 googleId={googleId} />
             <ProfileMainPanel
                 email={email} />
@@ -29,7 +29,7 @@ const ProfileView = ({ fullName, googleId, email }) => {
 };
 
 ProfileView.propTypes = {
-  fullName: PropTypes.string.isRequired,
+  nickname: PropTypes.string.isRequired,
   googleId: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired
 };
