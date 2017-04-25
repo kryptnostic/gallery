@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import ProfileForm from '../../../components/profile/ProfileForm';
+import AccountForm from '../../../components/account/AccountForm';
 
 class AccountBasicInfo extends React.Component {
   static propTypes = {
@@ -36,7 +36,7 @@ class AccountBasicInfo extends React.Component {
 
   render() {
     return (
-      <ProfileForm
+      <AccountForm
           header={'Basic Info'}
           content={this.getContent()} />
     );
