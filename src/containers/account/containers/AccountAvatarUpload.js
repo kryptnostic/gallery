@@ -12,6 +12,10 @@ class AccountAvatarUpload extends React.Component {
     id: PropTypes.string
   }
 
+  static defaultProps = {
+    id: ''
+  }
+
   getAvatar = () => {
     const { name, id } = this.props;
     return <Avatar name={name} googleId={id} />;

@@ -15,7 +15,8 @@ const AccountSectionWrapper = ({ header, ...props }) => {
 };
 
 AccountSectionWrapper.propTypes = {
-  header: PropTypes.string.isRequired
+  header: PropTypes.string.isRequired,
+  children: PropTypes.object.isRequired
 };
 
 export default AccountSectionWrapper;

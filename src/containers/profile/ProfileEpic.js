@@ -9,7 +9,6 @@ function loadUserEpic(action$) {
   return action$
     .ofType(actionTypes.LOAD_USER_REQUEST)
     .mergeMap((action) => {
-      console.log('epic action:', action);
       return Observable
         .from(PrincipalsApi.getUser(action.id))
         .mergeMap((user) => {
