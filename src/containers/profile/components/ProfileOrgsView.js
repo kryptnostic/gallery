@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import ProfileSectionWrapper from '../../../components/profile/ProfileSectionWrapper';
+import AccountSectionWrapper from '../../../components/account/AccountSectionWrapper';
 import styles from '../styles.module.css';
 
 const renderOrgs = (orgs) => {
@@ -23,11 +23,11 @@ const ProfileOrgs = ({ orgs }) => {
   const header = 'Organizations';
 
   return (
-    <ProfileSectionWrapper header={header}>
+    <AccountSectionWrapper header={header}>
       <div className={styles.sectionContent}>
         {renderOrgs(orgs)}
       </div>
-    </ProfileSectionWrapper>
+    </AccountSectionWrapper>
   );
 };
 

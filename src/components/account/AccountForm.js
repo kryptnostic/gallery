@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
 
-import ProfileSectionWrapper from './ProfileSectionWrapper';
+import AccountSectionWrapper from './AccountSectionWrapper';
 import styles from './styles.module.css';
 
 const getFormItems = (content) => {
@@ -23,17 +23,17 @@ const getFormItems = (content) => {
   return formItems;
 };
 
-const ProfileForm = ({ header, content }) => {
+const AccountForm = ({ header, content }) => {
   return (
-    <ProfileSectionWrapper header={header}>
+    <AccountSectionWrapper header={header}>
       <FormGroup className={styles.sectionContent}>
         {getFormItems(content)}
       </FormGroup>
-    </ProfileSectionWrapper>
+    </AccountSectionWrapper>
   );
 };
 
-ProfileForm.propTypes = {
+AccountForm.propTypes = {
   header: PropTypes.string.isRequired,
   content: PropTypes.arrayOf(PropTypes.shape({
     key: PropTypes.string.isRequired,
@@ -42,4 +42,4 @@ ProfileForm.propTypes = {
   })).isRequired
 };
 
-export default ProfileForm;
+export default AccountForm;

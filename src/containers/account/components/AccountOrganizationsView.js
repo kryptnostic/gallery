@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import ProfileSectionWrapper from '../../../components/profile/ProfileSectionWrapper';
+import AccountSectionWrapper from '../../../components/account/AccountSectionWrapper';
 import styles from '../styles.module.css';
 
 const renderContent = (content) => {
@@ -23,11 +23,11 @@ const renderContent = (content) => {
 
 const AccountOrganizationsView = ({ content }) => {
   return (
-    <ProfileSectionWrapper header="Your Organizations">
+    <AccountSectionWrapper header="Your Organizations">
       <div className={styles.contentWrapper}>
         {content.length > 0 ? renderContent(content) : 'You\'re not a member of any organizations yet.'}
       </div>
-    </ProfileSectionWrapper>
+    </AccountSectionWrapper>
   );
 };
 
