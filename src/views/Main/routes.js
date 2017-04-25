@@ -103,7 +103,7 @@ export const makeMainRoutes = () => {
       <Route path={PageConsts.LINK} component={Link} onEnter={requireAuth} />
       <Route path={'entitysets/:id/allpermissions'} component={AllPermissions} onEnter={requireAuth} />
       <Route path={PageConsts.EDIT_ACCOUNT} component={EditAccount} onEnter={requireAuth} />
-      <Route path={PageConsts.PROFILE} component={Profile} onEnter={requireAuth} />
+      <Route path={`${PageConsts.PROFILE}/:id`} component={Profile} onEnter={requireAuth} />
       <Route path="*" component={HomeComponent} onEnter={requireAuth} />
     </Route>
   );

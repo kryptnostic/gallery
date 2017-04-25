@@ -1,72 +1,57 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import Immutable from 'immutable';
-import AuthService from '../../../utils/AuthService';
+import { PrincipalsApi } from 'loom-data';
 
 import ProfileView from '../components/ProfileView';
-import { fetchOrganizationsRequest } from '../../organizations/actions/OrganizationsActionFactory';
-import { getSortedOrgs } from '../AccountHelpers';
 
 class Profile extends React.Component {
   static propTypes = {
-    fullName: PropTypes.string.isRequired,
-    googleId: PropTypes.string.isRequired,
-    email: PropTypes.string.isRequired,
-    visibleOrganizationIds: PropTypes.object.isRequired,
-    organizations: PropTypes.object.isRequired,
-    auth: React.PropTypes.instanceOf(AuthService).isRequired,
-    fetchOrganizationsRequest: PropTypes.func.isRequired
+    id: PropTypes.string.isRequired
+  }
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      user: {
+        name: '',
+        nickname: '',
+        email: ''
+      }
+    };
   }
 
   componentDidMount() {
-    this.props.fetchOrganizationsRequest();
+    PrincipalsApi.getUser(this.props.id)
+      .then((user) => {
+        console.log('user:', user);
+        this.setState({ user });
+      });
+
+    PrincipalsApi.getAllUsers().then((users) => {console.log('all users:', users)});
+  }
+
+  getGoogleId = () => {
+    return this.props.id.slice(14);
   }
 
   render() {
-    const {
-      fullName,
-      googleId,
-      email,
-      visibleOrganizationIds,
-      organizations,
-      auth
-    } = this.props;
 
     return (
       <ProfileView
-          fullName={fullName}
-          googleId={googleId}
-          email={email}
-          orgs={getSortedOrgs(visibleOrganizationIds, organizations, auth)} />
+          fullName={this.state.user.nickname}
+          googleId={this.getGoogleId()}
+          email={this.state.user.email} />
     );
   }
 }
 
-function mapStateToProps(state) {
-  const account = state.get('account');
-  const organizations = state.getIn(['organizations', 'organizations'], Immutable.Map());
-  const visibleOrganizationIds = state.getIn(
-    ['organizations', 'visibleOrganizationIds'],
-    Immutable.Set()
-  );
+function mapStateToProps(state, ownProps) {
 
   return {
-    fullName: account.get('fullName'),
-    googleId: account.get('googleId'),
-    email: account.get('email'),
-    organizations,
-    visibleOrganizationIds
+    id: ownProps.params.id
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  const actions = {
-    fetchOrganizationsRequest
-  };
-
-  return bindActionCreators(actions, dispatch);
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Profile);
+export default connect(mapStateToProps, null)(Profile);
