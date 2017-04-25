@@ -19,7 +19,7 @@ import EnvConsts from '../../utils/Consts/EnvConsts';
 import { ADMIN } from '../../utils/Consts/UserRoleConsts';
 import { getDisplayName } from '../../containers/principals/PrincipalUtils';
 import AllPermissions from '../../containers/permissionssummary/components/AllPermissions';
-import EditAccount from '../../containers/account/components/AccountView';
+import Account from '../../containers/account/components/AccountView';
 import Profile from '../../containers/profile/containers/Profile';
 
 import TopUtilizersContainer from '../../containers/toputilizers/components/TopUtilizersPage';
@@ -101,7 +101,7 @@ export const makeMainRoutes = () => {
       <Route path={'access_token=:token'} component={Login} /> {/* to prevent router errors*/}
       <Route path={PageConsts.LINK} component={Link} onEnter={requireAuth} />
       <Route path={'entitysets/:id/allpermissions'} component={AllPermissions} onEnter={requireAuth} />
-      <Route path={PageConsts.EDIT_ACCOUNT} component={EditAccount} onEnter={requireAuth} />
+      <Route path={PageConsts.ACCOUNT} component={Account} onEnter={requireAuth} />
       <Route path={`${PageConsts.PROFILE}/:id`} component={Profile} onEnter={requireAuth} />
       <Route path="*" component={HomeComponent} onEnter={requireAuth} />
     </Route>
