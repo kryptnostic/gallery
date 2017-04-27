@@ -71,3 +71,8 @@ a:hover {
   background: #300290;
   color: white;
 }
+
+.downloadTopUtilizersButton {
+  text-align: center;
+  margin: 15px 0;
+}

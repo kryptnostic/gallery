@@ -1,11 +1,15 @@
 import React, { PropTypes } from 'react';
 import Promise from 'bluebird';
 import DocumentTitle from 'react-document-title';
+import { Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { EntityDataModelApi } from 'loom-data';
 
 import SearchResultsTable from '../../entitysetsearch/EntitySetSearchResults';
 import LoadingSpinner from '../../../components/asynccontent/LoadingSpinner';
+import FileService from '../../../utils/FileService';
+import FileConsts from '../../../utils/Consts/FileConsts';
+import styles from '../styles.module.css';
 
 class TopUtilizersResultsContainer extends React.Component {
   static propTypes = {
@@ -75,10 +79,29 @@ class TopUtilizersResultsContainer extends React.Component {
     return this.props.isGettingResults ? <LoadingSpinner /> : this.renderTable();
   }
 
+  downloadResults = () => {
+    FileService.saveFile(this.props.results.toJS(), 'Top Utilizers', FileConsts.JSON);
+  }
+
+  renderDownloadButton = () => {
+    return (this.props.isGettingResults) ? null : (
+      <div className={styles.downloadTopUtilizersButton}>
+        <Button
+            bsStyle="primary"
+            onClick={() => {
+              this.downloadResults();
+            }}>Download</Button>
+      </div>
+    );
+  }
+
   render() {
     return (
       <DocumentTitle title="Top Utilizers">
-        {this.renderContent()}
+        <div>
+          {this.renderContent()}
+          {this.renderDownloadButton()}
+        </div>
       </DocumentTitle>
     );
   }
