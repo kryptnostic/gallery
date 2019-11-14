@@ -15,7 +15,7 @@ export const DATA_SQL_TYPES = {
     connectionString: 'db2',
     connectionSuffixString: '',
     tablesSql: 'SELECT * FROM <metaTableGoesHere>',
-    defaultPort: 0
+    defaultPort: 50000
   },
   'JDBC-ODBC Bridge': {
     driver: 'sun.jdbc.odbc.JdbcOdbcDriver',
@@ -25,11 +25,11 @@ export const DATA_SQL_TYPES = {
     defaultPort: 0
   },
   'Microsoft SQL Server': {
-    driver: 'weblogic.jdbc.mssqlserver4.Driver',
-    connectionString: 'weblogic',
+    driver: 'com.microsoft.sqlserver.jdbc.SQLServerDriver',
+    connectionString: 'sqlserver',
     connectionSuffixString: '',
-    tablesSql: 'SELECT * FROM <metaTableGoesHere>',
-    defaultPort: 0
+    tablesSql: 'SELECT name FROM sys.sysobjects where xtype = \'U\' ) dh ',
+    defaultPort: 1433
   },
   'PointBase Embedded Server': {
     driver: 'com.pointbase.jdbc.jdbcUniversalDriver',
@@ -92,56 +92,63 @@ export const DATA_SQL_TYPES = {
     connectionString: 'interbase',
     connectionSuffixString: '',
     tablesSql: 'SELECT * FROM <metaTableGoesHere>',
-    defaultPort: 0
+    defaultPort: 3050
   },
   'Hypersonic SQL (v1.2 and earlier)': {
     driver: 'hSql.hDriver',
     connectionString: 'HypersonicSQL',
     connectionSuffixString: '',
     tablesSql: 'SELECT * FROM <metaTableGoesHere>',
-    defaultPort: 0
+    defaultPort: 9001
   },
   'Hypersonic SQL (v1.3 and later)': {
     driver: 'org.hsql.jdbcDriver',
     connectionString: 'HypersonicSQL',
     connectionSuffixString: '',
     tablesSql: 'SELECT * FROM <metaTableGoesHere>',
-    defaultPort: 0
+    defaultPort: 9001
+  },
+  'Microsoft SQL Server (Weblogic driver)': {
+    driver: 'weblogic.jdbc.mssqlserver4.Driver',
+    connectionString: 'weblogic',
+    connectionSuffixString: '',
+    tablesSql: 'SELECT * FROM <metaTableGoesHere>',
+    defaultPort: 1433
   },
   'Microsoft SQL Server (JTurbo Driver)': {
     driver: 'com.ashna.jturbo.driver.Driver',
     connectionString: 'JTurbo',
     connectionSuffixString: '',
     tablesSql: 'SELECT * FROM <metaTableGoesHere>',
-    defaultPort: 0
+    defaultPort: 1433
   },
   'Microsoft SQL Server (Sprinta Driver)': {
     driver: 'com.inet.tds.TdsDriver',
     connectionString: 'inetdae',
     connectionSuffixString: '',
     tablesSql: 'SELECT * FROM <metaTableGoesHere>',
-    defaultPort: 0
+    defaultPort: 1433
   },
   'Microsoft SQL Server 2000 (Microsoft Driver)': {
     driver: 'com.microsoft.jdbc.sqlserver.SQLServerDriver',
     connectionString: 'microsoft',
     connectionSuffixString: '',
     tablesSql: 'SELECT * FROM <metaTableGoesHere>',
-    defaultPort: 0
+    defaultPort: 1433
   },
   'MySQL (MM.MySQL Driver)': {
     driver: 'org.gjt.mm.mysql.Driver',
     connectionString: 'mysql',
     connectionSuffixString: '',
     tablesSql: 'SELECT * FROM <metaTableGoesHere>',
-    defaultPort: 0
+    defaultPort: 3306
   },
   Oracle: {
     driver: 'oracle.jdbc.driver.OracleDriver',
-    connectionString: 'oracle',
-    connectionSuffixString: '',
+    connectionString: 'oracle:thin',
+    connectionSuffixString: ':<sidGoesHere>',
     tablesSql: 'SELECT * FROM <metaTableGoesHere>',
-    defaultPort: 0
+    defaultPort: 1521
   },
   'PostgreSQL (v6.5 and earlier)': {
     driver: 'postgresql.Driver',
