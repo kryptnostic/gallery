@@ -24,7 +24,7 @@ export const DATA_SQL_TYPES = {
     tablesSql: 'SELECT * FROM <metaTableGoesHere>',
     defaultPort: 0
   },
-  'Microsoft SQL Server': {
+  'Microsoft SQL Server 2000': {
     driver: 'com.microsoft.sqlserver.jdbc.SQLServerDriver',
     connectionString: 'sqlserver',
     connectionSuffixString: '',
